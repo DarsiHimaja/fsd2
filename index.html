@@ -6,269 +6,245 @@
     <title>PM Internship Smart Matching System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
         }
-        
-        .card-hover {
-            transition: all 0.3s ease;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        .card-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        
-        .match-score {
-            background: linear-gradient(45deg, #10b981, #059669);
-        }
-        
-        .pulse-animation {
+        .pulse-dot {
             animation: pulse 2s infinite;
         }
-        
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        .skill-tag {
-            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
-        }
-        
-        .diversity-badge {
-            background: linear-gradient(45deg, #f59e0b, #d97706);
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
     <!-- Header -->
-    <header class="gradient-bg text-white py-6 shadow-lg">
-        <div class="container mx-auto px-6">
+    <header class="bg-white shadow-lg border-b-4 border-blue-600">
+        <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                        <span class="text-2xl">🎯</span>
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">PM</span>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-bold">PM Internship Matcher</h1>
-                        <p class="text-blue-100 text-sm">AI-Powered Smart Matching System</p>
+                        <h1 class="text-2xl font-bold text-gray-800">PM Internship Matching System</h1>
+                        <p class="text-sm text-gray-600">AI-Powered Candidate-Opportunity Matching</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div class="text-right">
-                        <p class="text-sm text-blue-100">Active Candidates</p>
-                        <p class="text-xl font-bold">2,847</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-sm text-blue-100">Available Positions</p>
-                        <p class="text-xl font-bold">1,234</p>
-                    </div>
+                <div class="flex items-center space-x-2 bg-green-100 px-4 py-2 rounded-full">
+                    <div class="w-3 h-3 bg-green-500 rounded-full pulse-dot"></div>
+                    <span class="text-green-700 font-medium">AI Engine Active</span>
                 </div>
             </div>
         </div>
     </header>
 
     <div class="container mx-auto px-6 py-8">
-        <!-- Control Panel -->
+        <!-- Dashboard Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm">Total Applicants</p>
+                        <p class="text-3xl font-bold text-gray-800">12,847</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <span class="text-blue-600 text-xl">👥</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm">Available Positions</p>
+                        <p class="text-3xl font-bold text-gray-800">2,156</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                        <span class="text-green-600 text-xl">💼</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-purple-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm">Matches Made</p>
+                        <p class="text-3xl font-bold text-gray-800">8,923</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <span class="text-purple-600 text-xl">🎯</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-orange-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm">Success Rate</p>
+                        <p class="text-3xl font-bold text-gray-800">94.2%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <span class="text-orange-600 text-xl">📈</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
         <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold text-gray-800">AI Matching Engine</h2>
-                <button id="runMatchingBtn" class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 flex items-center space-x-2">
-                    <span>🤖</span>
-                    <span>Run AI Matching</span>
+            <div class="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+                <button id="availableTab" onclick="switchTab('available')" class="flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 bg-blue-600 text-white">
+                    📋 Available Candidates
+                </button>
+                <button id="selectedTab" onclick="switchTab('selected')" class="flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 text-gray-600 hover:text-gray-800">
+                    ✅ Selected Candidates (<span id="selectedCount">0</span>)
                 </button>
             </div>
-            
-            <!-- Matching Criteria -->
-            <div class="grid md:grid-cols-3 gap-6 mb-6">
-                <div class="bg-blue-50 p-4 rounded-lg">
-                    <h3 class="font-semibold text-blue-800 mb-2">Skills & Qualifications</h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center">
-                            <input type="checkbox" checked class="mr-2 text-blue-600">
-                            <span class="text-sm">Technical Skills Match (70%)</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" checked class="mr-2 text-blue-600">
-                            <span class="text-sm">Educational Background (20%)</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" checked class="mr-2 text-blue-600">
-                            <span class="text-sm">Experience Level (10%)</span>
-                        </label>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" id="availableView">
+            <!-- Sector Selection -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                        <span class="mr-2">🏢</span>
+                        Select Sector
+                    </h2>
+                    <div class="space-y-3" id="sectorList">
+                        <!-- Sectors will be populated by JavaScript -->
                     </div>
                 </div>
-                
-                <div class="bg-green-50 p-4 rounded-lg">
-                    <h3 class="font-semibold text-green-800 mb-2">Preferences & Location</h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center">
-                            <input type="checkbox" checked class="mr-2 text-green-600">
-                            <span class="text-sm">Location Preference (40%)</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" checked class="mr-2 text-green-600">
-                            <span class="text-sm">Sector Interest (35%)</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" checked class="mr-2 text-green-600">
-                            <span class="text-sm">Company Size Preference (25%)</span>
-                        </label>
+
+                <!-- Filters -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mt-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                        <span class="mr-2">🔍</span>
+                        Smart Filters
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Category Priority</label>
+                            <select id="categoryFilter" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="all">All Categories</option>
+                                <option value="SC">SC Priority</option>
+                                <option value="ST">ST Priority</option>
+                                <option value="OBC">OBC Priority</option>
+                                <option value="General">General Category</option>
+                                <option value="rural">Rural/Aspirational Districts</option>
+                                <option value="first-time">First-time Applicants</option>
+                                <option value="high-performance">High Academic Performance</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Company</label>
+                            <select id="companyFilter" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="">Select Company</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Role</label>
+                            <select id="roleFilter" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="">Select Role</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Location Preference</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option>All Locations</option>
+                                <option>Metro Cities</option>
+                                <option>Tier-2 Cities</option>
+                                <option>Home State Preference</option>
+                            </select>
+                        </div>
+                        <button class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium">
+                            Apply AI Matching
+                        </button>
                     </div>
                 </div>
-                
-                <div class="bg-orange-50 p-4 rounded-lg">
-                    <h3 class="font-semibold text-orange-800 mb-2">Diversity & Inclusion</h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center">
-                            <input type="checkbox" checked class="mr-2 text-orange-600">
-                            <span class="text-sm">Rural/Aspirational Districts</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" checked class="mr-2 text-orange-600">
-                            <span class="text-sm">Social Category Balance</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" checked class="mr-2 text-orange-600">
-                            <span class="text-sm">First-time Participants</span>
-                        </label>
+            </div>
+
+            <!-- Internship Details & Candidates -->
+            <div class="lg:col-span-2">
+                <!-- Internship Description -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-6" id="internshipDetails">
+                    <div class="text-center py-12">
+                        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl">🎯</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">Select a Sector</h3>
+                        <p class="text-gray-500">Choose a sector from the left panel to view internship details and matched candidates</p>
+                    </div>
+                </div>
+
+                <!-- Matched Candidates -->
+                <div class="bg-white rounded-xl shadow-lg p-6" id="candidatesSection" style="display: none;">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-gray-800 flex items-center">
+                            <span class="mr-2">👨‍🎓</span>
+                            Top Matched Candidates
+                        </h3>
+                        <div class="flex items-center space-x-2 bg-blue-100 px-3 py-1 rounded-full">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <span class="text-blue-700 text-sm font-medium">AI Ranked</span>
+                        </div>
+                    </div>
+                    <div id="candidatesList">
+                        <!-- Candidates will be populated by JavaScript -->
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Matching Results -->
-        <div id="matchingResults" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <!-- Selected Candidates View -->
+        <div class="hidden" id="selectedView">
+            <div class="bg-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-bold text-gray-800">AI Matching Results</h2>
+                    <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                        <span class="mr-2">✅</span>
+                        Selected Candidates
+                    </h2>
                     <div class="flex items-center space-x-4">
-                        <div class="text-center">
-                            <p class="text-sm text-gray-600">Total Candidates</p>
-                            <p class="text-2xl font-bold text-purple-600" id="totalCandidates">20</p>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-green-600" id="totalSelected">0</div>
+                            <div class="text-sm text-gray-600">Total Selected</div>
                         </div>
-                        <div class="text-center">
-                            <p class="text-sm text-gray-600">Positions Available</p>
-                            <p class="text-2xl font-bold text-blue-600" id="totalPositions">26</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-sm text-gray-600">Successfully Matched</p>
-                            <p class="text-2xl font-bold text-green-600" id="matchedCount">0</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-sm text-gray-600">Avg Match Score</p>
-                            <p class="text-2xl font-bold text-orange-600" id="avgScore">84.2%</p>
-                        </div>
+                        <button onclick="exportSelected()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                            📊 Export List
+                        </button>
                     </div>
                 </div>
-                
-                <!-- Company Capacity Overview -->
-                <div class="bg-gray-50 rounded-lg p-4 mb-6" id="capacityOverview">
-                    <h3 class="font-semibold text-gray-800 mb-3">Company Capacity Status</h3>
-                    <div class="grid grid-cols-5 gap-4" id="capacityGrid">
-                        <!-- Capacity cards will be populated here -->
-                    </div>
-                </div>
-                
-                <!-- Sample Matches -->
-                <div class="space-y-4" id="matchesList">
-                    <!-- Matches will be populated here -->
-                </div>
-            </div>
-        </div>
 
-        <!-- Candidate Profile Demo -->
-        <div class="grid lg:grid-cols-2 gap-8">
-            <!-- Sample Candidate -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">Sample Candidate Profile</h3>
-                <div class="space-y-4">
+                <!-- Sector Filter -->
+                <div class="mb-6">
                     <div class="flex items-center space-x-4">
-                        <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
-                            AR
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">🏢 Filter by Sector</label>
+                            <select id="sectorFilterDropdown" onchange="filterSelectedBySector()" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="all">All Sectors</option>
+                            </select>
                         </div>
-                        <div>
-                            <h4 class="font-semibold text-lg">Arjun Reddy</h4>
-                            <p class="text-gray-600">Computer Science Engineering</p>
-                            <p class="text-sm text-gray-500">Hyderabad, Telangana</p>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h5 class="font-semibold mb-2">Skills</h5>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="skill-tag text-white px-3 py-1 rounded-full text-sm">Python</span>
-                            <span class="skill-tag text-white px-3 py-1 rounded-full text-sm">Machine Learning</span>
-                            <span class="skill-tag text-white px-3 py-1 rounded-full text-sm">Data Analysis</span>
-                            <span class="skill-tag text-white px-3 py-1 rounded-full text-sm">React</span>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h5 class="font-semibold mb-2">Preferences</h5>
-                        <div class="space-y-1 text-sm text-gray-600">
-                            <p>• Preferred Sector: Technology, Fintech</p>
-                            <p>• Location: Hyderabad, Bangalore, Chennai</p>
-                            <p>• Company Size: Startup to Mid-size</p>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h5 class="font-semibold mb-2">Diversity Factors</h5>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="diversity-badge text-white px-3 py-1 rounded-full text-sm">Rural District</span>
-                            <span class="diversity-badge text-white px-3 py-1 rounded-full text-sm">First-time Participant</span>
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">📊 View Statistics</label>
+                            <div class="bg-gray-50 rounded-lg p-3">
+                                <div class="text-sm text-gray-600" id="filterStats">
+                                    Showing all selected candidates
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Sample Internship -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">Sample Internship Opportunity</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center text-white text-2xl">
-                            🏢
+                <div id="selectedCandidatesList">
+                    <div class="text-center py-12">
+                        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl">📋</span>
                         </div>
-                        <div>
-                            <h4 class="font-semibold text-lg">TechCorp Solutions</h4>
-                            <p class="text-gray-600">Software Development Intern</p>
-                            <p class="text-sm text-gray-500">Hyderabad, Telangana</p>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h5 class="font-semibold mb-2">Required Skills</h5>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Python</span>
-                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Web Development</span>
-                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Database</span>
-                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Problem Solving</span>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h5 class="font-semibold mb-2">Opportunity Details</h5>
-                        <div class="space-y-1 text-sm text-gray-600">
-                            <p>• Duration: 6 months</p>
-                            <p>• Stipend: ₹25,000/month</p>
-                            <p>• Team Size: 15-20 members</p>
-                            <p>• Mentorship: Senior Developer assigned</p>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h5 class="font-semibold mb-2">Diversity Commitment</h5>
-                        <div class="space-y-1 text-sm text-gray-600">
-                            <p>• 40% positions for rural candidates</p>
-                            <p>• Equal opportunity employer</p>
-                            <p>• Mentorship for first-time interns</p>
-                        </div>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">No Candidates Selected Yet</h3>
+                        <p class="text-gray-500">Selected candidates will appear here. You can manage and track all your selections from this tab.</p>
                     </div>
                 </div>
             </div>
@@ -276,491 +252,1713 @@
     </div>
 
     <script>
-        // Comprehensive sample data for matching results
-        const allCandidates = [
-            {
-                candidate: "Arjun Reddy",
-                company: "TechCorp Solutions",
-                position: "Software Development Intern",
-                matchScore: 96,
-                location: "Hyderabad",
-                skills: ["Python", "Machine Learning", "React"],
-                diversityFactors: ["Rural District", "First-time"],
-                reasons: ["Perfect skill match", "Location preference", "Diversity priority"],
-                status: "Available",
-                cgpa: 8.9,
-                experience: "2 projects"
+        // Sector data with internship details and roles
+        const sectors = {
+            'IT and Software Development': {
+                icon: '💻',
+                color: 'blue',
+                description: 'Cutting-edge technology internships focusing on software development, AI/ML, cybersecurity, and digital transformation.',
+                duration: '6 months',
+                stipend: '₹25,000 - ₹40,000',
+                positions: 450,
+                skills: ['Programming', 'Data Structures', 'Web Development', 'Database Management', 'Problem Solving'],
+                companies: {
+                    'TCS': ['Software Developer', 'Data Analyst', 'UI/UX Designer', 'DevOps Engineer'],
+                    'Infosys': ['Full Stack Developer', 'Machine Learning Engineer', 'Cybersecurity Analyst', 'Cloud Architect'],
+                    'Wipro': ['Backend Developer', 'Mobile App Developer', 'QA Engineer', 'Business Analyst'],
+                    'Tech Mahindra': ['Frontend Developer', 'Database Administrator', 'Network Engineer', 'Product Manager'],
+                    'HCL Technologies': ['Software Engineer', 'AI/ML Specialist', 'System Administrator', 'Technical Writer']
+                },
+                locations: ['Bangalore', 'Hyderabad', 'Pune', 'Chennai', 'Gurgaon'],
+                requirements: 'B.Tech/B.E in Computer Science, IT, or related fields. Strong programming fundamentals required.'
             },
-            {
-                candidate: "Sneha Patel",
-                company: "HealthCare Plus",
-                position: "Product Management Intern",
-                matchScore: 94,
-                location: "Bangalore",
-                skills: ["Product Strategy", "Research", "Communication"],
-                diversityFactors: ["ST Category", "Remote Area"],
-                reasons: ["Product management interest", "Healthcare sector match", "Inclusion priority"],
-                status: "Available",
-                cgpa: 8.7,
-                experience: "1 internship"
+            'Banking and Financial Services': {
+                icon: '🏦',
+                color: 'green',
+                description: 'Comprehensive exposure to banking operations, financial analysis, risk management, and digital banking solutions.',
+                duration: '4 months',
+                stipend: '₹20,000 - ₹35,000',
+                positions: 320,
+                skills: ['Financial Analysis', 'Risk Assessment', 'Customer Service', 'Regulatory Compliance', 'Data Analysis'],
+                companies: {
+                    'SBI': ['Credit Analyst', 'Branch Operations', 'Digital Banking Specialist', 'Risk Management Trainee'],
+                    'HDFC Bank': ['Relationship Manager', 'Investment Advisor', 'Loan Processing Officer', 'Treasury Analyst'],
+                    'ICICI Bank': ['Financial Consultant', 'Corporate Banking Associate', 'Wealth Management Trainee', 'Compliance Officer'],
+                    'Axis Bank': ['Business Analyst', 'Credit Risk Analyst', 'Customer Service Executive', 'Operations Associate'],
+                    'Kotak Mahindra': ['Investment Banking Analyst', 'Retail Banking Officer', 'Financial Planner', 'Audit Trainee']
+                },
+                locations: ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata'],
+                requirements: 'B.Com, BBA, B.E, or MBA students. Strong analytical and communication skills preferred.'
             },
-            {
-                candidate: "Karthik Menon",
-                company: "TechCorp Solutions",
-                position: "AI/ML Intern",
-                matchScore: 93,
-                location: "Chennai",
-                skills: ["Python", "TensorFlow", "Data Science"],
-                diversityFactors: ["General Category"],
-                reasons: ["Exceptional ML skills", "Research background", "High academic performance"],
-                status: "Available",
-                cgpa: 9.2,
-                experience: "3 projects"
+            'Oil, Gas & Energy': {
+                icon: '⚡',
+                color: 'orange',
+                description: 'Hands-on experience in energy sector operations, renewable energy projects, and sustainable development initiatives.',
+                duration: '6 months',
+                stipend: '₹30,000 - ₹45,000',
+                positions: 180,
+                skills: ['Project Management', 'Technical Analysis', 'Safety Protocols', 'Environmental Compliance', 'Data Interpretation'],
+                companies: {
+                    'ONGC': ['Petroleum Engineer', 'Geologist Trainee', 'Production Engineer', 'HSE Officer'],
+                    'Indian Oil': ['Refinery Operations', 'Marketing Executive', 'R&D Associate', 'Supply Chain Analyst'],
+                    'NTPC': ['Power Plant Engineer', 'Environmental Engineer', 'Project Coordinator', 'Maintenance Trainee'],
+                    'Reliance Industries': ['Process Engineer', 'Business Development Associate', 'Quality Control Analyst', 'Safety Engineer'],
+                    'Adani Group': ['Renewable Energy Specialist', 'Project Manager', 'Operations Analyst', 'Sustainability Officer']
+                },
+                locations: ['Mumbai', 'Delhi', 'Ahmedabad', 'Visakhapatnam', 'Kochi'],
+                requirements: 'B.Tech in Mechanical, Chemical, Electrical, or Petroleum Engineering. Field work readiness essential.'
             },
-            {
-                candidate: "Ananya Singh",
-                company: "FinanceFlow Ltd",
-                position: "Quantitative Analyst Intern",
-                matchScore: 91,
-                location: "Mumbai",
-                skills: ["Statistics", "Python", "Financial Modeling"],
-                diversityFactors: ["Female", "Tier-3 City"],
-                reasons: ["Strong quantitative skills", "Finance interest", "Gender diversity"],
-                status: "Available",
-                cgpa: 8.8,
-                experience: "2 internships"
+            'FMCG': {
+                icon: '🛍️',
+                color: 'purple',
+                description: 'Dynamic internships in consumer goods sector covering marketing, supply chain, brand management, and retail operations.',
+                duration: '4 months',
+                stipend: '₹18,000 - ₹30,000',
+                positions: 280,
+                skills: ['Marketing', 'Brand Management', 'Supply Chain', 'Consumer Research', 'Sales Strategy'],
+                companies: {
+                    'Hindustan Unilever': ['Brand Management Trainee', 'Sales Executive', 'Supply Chain Analyst', 'Market Research Associate'],
+                    'Nestle': ['Product Manager Trainee', 'Quality Assurance Officer', 'Distribution Manager', 'Consumer Insights Analyst'],
+                    'P&G': ['Marketing Associate', 'Category Manager', 'Trade Marketing Executive', 'Innovation Specialist'],
+                    'Britannia': ['Sales Manager Trainee', 'Production Planner', 'Brand Assistant', 'Regional Sales Officer'],
+                    'Dabur': ['Digital Marketing Executive', 'Rural Marketing Associate', 'Export Manager', 'R&D Trainee']
+                },
+                locations: ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata'],
+                requirements: 'MBA, B.Tech, or Bachelor\'s in any discipline. Strong communication and analytical skills required.'
             },
-            {
-                candidate: "Priya Sharma",
-                company: "FinanceFlow Ltd",
-                position: "Data Analytics Intern",
-                matchScore: 89,
-                location: "Mumbai",
-                skills: ["Python", "SQL", "Excel"],
-                diversityFactors: ["SC Category", "Aspirational District"],
-                reasons: ["Strong analytics background", "Sector interest match", "Affirmative action"],
-                status: "Available",
-                cgpa: 8.5,
-                experience: "1 project"
+            'Telecom': {
+                icon: '📱',
+                color: 'indigo',
+                description: 'Exposure to telecommunications infrastructure, 5G technology, network optimization, and digital communication solutions.',
+                duration: '5 months',
+                stipend: '₹22,000 - ₹38,000',
+                positions: 200,
+                skills: ['Network Technologies', 'Technical Support', 'Project Coordination', 'Data Analysis', 'Customer Solutions'],
+                companies: {
+                    'Airtel': ['Network Engineer', 'Customer Experience Associate', 'Business Analyst', '5G Technology Specialist'],
+                    'Jio': ['Digital Services Developer', 'Network Planning Engineer', 'Product Manager Trainee', 'Data Analyst'],
+                    'Vi': ['RF Engineer', 'Customer Service Manager', 'Sales Executive', 'Technical Support Specialist'],
+                    'BSNL': ['Telecom Engineer', 'Operations Manager', 'IT Support Executive', 'Field Engineer'],
+                    'Tata Communications': ['Cloud Solutions Architect', 'Network Security Analyst', 'Enterprise Sales Associate', 'Technical Consultant']
+                },
+                locations: ['Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Pune'],
+                requirements: 'B.Tech in Electronics, Telecommunications, or Computer Science. Technical aptitude essential.'
             },
-            {
-                candidate: "Vikash Singh",
-                company: "EduTech Solutions",
-                position: "Frontend Developer Intern",
-                matchScore: 88,
-                location: "Pune",
-                skills: ["React", "JavaScript", "UI/UX"],
-                diversityFactors: ["OBC Category", "First Generation Graduate"],
-                reasons: ["Frontend expertise", "EdTech interest", "Social mobility support"],
-                status: "Available",
-                cgpa: 8.3,
-                experience: "2 projects"
+            'Manufacturing': {
+                icon: '🏭',
+                color: 'red',
+                description: 'Industrial exposure to manufacturing processes, quality control, automation, and lean manufacturing principles.',
+                duration: '6 months',
+                stipend: '₹20,000 - ₹35,000',
+                positions: 350,
+                skills: ['Process Optimization', 'Quality Control', 'Safety Management', 'Technical Documentation', 'Problem Solving'],
+                companies: {
+                    'Tata Motors': ['Production Engineer', 'Quality Control Engineer', 'Design Engineer', 'Supply Chain Analyst'],
+                    'Mahindra': ['Manufacturing Engineer', 'R&D Associate', 'Process Improvement Specialist', 'Plant Operations Trainee'],
+                    'Bajaj Auto': ['Assembly Line Engineer', 'Quality Assurance Officer', 'Maintenance Engineer', 'Production Planner'],
+                    'L&T': ['Project Engineer', 'Construction Manager', 'Design Consultant', 'Site Supervisor'],
+                    'Godrej': ['Industrial Engineer', 'Product Development Associate', 'Operations Manager', 'Automation Specialist']
+                },
+                locations: ['Pune', 'Chennai', 'Aurangabad', 'Coimbatore', 'Gurgaon'],
+                requirements: 'B.Tech in Mechanical, Production, or Industrial Engineering. Hands-on approach preferred.'
             },
-            {
-                candidate: "Rahul Kumar",
-                company: "GreenTech Innovations",
-                position: "Marketing Intern",
-                matchScore: 87,
-                location: "Delhi",
-                skills: ["Digital Marketing", "Content", "Analytics"],
-                diversityFactors: ["Rural Background", "First-time"],
-                reasons: ["Marketing skills alignment", "Startup preference", "Geographic diversity"],
-                status: "Available",
-                cgpa: 8.1,
-                experience: "1 internship"
+            'Travel & Hospitality': {
+                icon: '✈️',
+                color: 'teal',
+                description: 'Experience in tourism management, hotel operations, customer service excellence, and hospitality technology.',
+                duration: '4 months',
+                stipend: '₹15,000 - ₹25,000',
+                positions: 220,
+                skills: ['Customer Service', 'Event Management', 'Cultural Sensitivity', 'Communication', 'Operations Management'],
+                companies: {
+                    'Taj Hotels': ['Front Office Associate', 'Food & Beverage Manager', 'Event Coordinator', 'Guest Relations Officer'],
+                    'ITC': ['Hotel Operations Trainee', 'Culinary Arts Associate', 'Sales & Marketing Executive', 'Housekeeping Supervisor'],
+                    'MakeMyTrip': ['Travel Consultant', 'Product Manager', 'Customer Support Executive', 'Business Development Associate'],
+                    'OYO': ['Operations Manager', 'Revenue Manager', 'Quality Assurance Officer', 'Partnership Manager'],
+                    'Thomas Cook': ['Tour Manager', 'Travel Advisor', 'Visa Processing Officer', 'Corporate Travel Consultant']
+                },
+                locations: ['Goa', 'Mumbai', 'Delhi', 'Jaipur', 'Bangalore'],
+                requirements: 'Hotel Management, Tourism, or any Bachelor\'s degree. Excellent interpersonal skills required.'
             },
-            {
-                candidate: "Meera Joshi",
-                company: "HealthCare Plus",
-                position: "UX Research Intern",
-                matchScore: 86,
-                location: "Pune",
-                skills: ["User Research", "Design Thinking", "Prototyping"],
-                diversityFactors: ["Female", "Rural District"],
-                reasons: ["Design background", "Healthcare interest", "User-centric approach"],
-                status: "Available",
-                cgpa: 8.4,
-                experience: "1 project"
+            'Healthcare': {
+                icon: '🏥',
+                color: 'pink',
+                description: 'Comprehensive healthcare sector exposure including hospital administration, medical technology, and public health initiatives.',
+                duration: '5 months',
+                stipend: '₹18,000 - ₹32,000',
+                positions: 190,
+                skills: ['Healthcare Administration', 'Patient Care', 'Medical Technology', 'Data Management', 'Regulatory Compliance'],
+                companies: {
+                    'Apollo Hospitals': ['Hospital Administrator', 'Clinical Research Associate', 'Medical Equipment Specialist', 'Patient Care Coordinator'],
+                    'Fortis': ['Healthcare Analyst', 'Medical Records Officer', 'Quality Assurance Manager', 'Pharmacy Trainee'],
+                    'Max Healthcare': ['Operations Associate', 'Medical Technology Specialist', 'Insurance Coordinator', 'Lab Technician'],
+                    'AIIMS': ['Research Assistant', 'Public Health Officer', 'Medical Data Analyst', 'Clinical Trial Coordinator'],
+                    'Manipal Hospitals': ['Healthcare IT Specialist', 'Nursing Supervisor', 'Biomedical Engineer', 'Health Information Manager']
+                },
+                locations: ['Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Hyderabad'],
+                requirements: 'MBBS, Nursing, Pharmacy, Hospital Administration, or related healthcare degrees.'
             },
-            {
-                candidate: "Amit Gupta",
-                company: "TechCorp Solutions",
-                position: "Backend Developer Intern",
-                matchScore: 85,
-                location: "Noida",
-                skills: ["Java", "Spring Boot", "Microservices"],
-                diversityFactors: ["General Category"],
-                reasons: ["Strong backend skills", "System design knowledge", "Team collaboration"],
-                status: "Available",
-                cgpa: 8.6,
-                experience: "2 internships"
-            },
-            {
-                candidate: "Divya Nair",
-                company: "GreenTech Innovations",
-                position: "Sustainability Analyst",
-                matchScore: 84,
-                location: "Kochi",
-                skills: ["Environmental Science", "Data Analysis", "Research"],
-                diversityFactors: ["Female", "Coastal Region"],
-                reasons: ["Environmental passion", "Research skills", "Regional diversity"],
-                status: "Available",
-                cgpa: 8.2,
-                experience: "1 internship"
-            },
-            {
-                candidate: "Rohit Sharma",
-                company: "EduTech Solutions",
-                position: "Content Developer Intern",
-                matchScore: 83,
-                location: "Jaipur",
-                skills: ["Content Writing", "Educational Design", "Video Editing"],
-                diversityFactors: ["OBC Category", "Tier-2 City"],
-                reasons: ["Content creation skills", "Education sector interest", "Creative approach"],
-                status: "Available",
-                cgpa: 7.9,
-                experience: "1 project"
-            },
-            {
-                candidate: "Pooja Reddy",
-                company: "FinanceFlow Ltd",
-                position: "Risk Analysis Intern",
-                matchScore: 82,
-                location: "Hyderabad",
-                skills: ["Risk Management", "Excel", "Statistics"],
-                diversityFactors: ["Female", "First-time"],
-                reasons: ["Risk analysis interest", "Statistical background", "Fresh perspective"],
-                status: "Available",
-                cgpa: 8.0,
-                experience: "1 internship"
-            },
-            {
-                candidate: "Suresh Kumar",
-                company: "GreenTech Innovations",
-                position: "Operations Intern",
-                matchScore: 81,
-                location: "Bangalore",
-                skills: ["Operations Management", "Process Improvement", "Analytics"],
-                diversityFactors: ["SC Category", "Rural Background"],
-                reasons: ["Operations interest", "Process optimization", "Diversity inclusion"],
-                status: "Available",
-                cgpa: 7.8,
-                experience: "1 project"
-            },
-            {
-                candidate: "Kavya Iyer",
-                company: "HealthCare Plus",
-                position: "Data Science Intern",
-                matchScore: 80,
-                location: "Chennai",
-                skills: ["Python", "Statistics", "Healthcare Analytics"],
-                diversityFactors: ["Female", "General Category"],
-                reasons: ["Healthcare data interest", "Statistical skills", "Domain knowledge"],
-                status: "Available",
-                cgpa: 8.1,
-                experience: "2 projects"
-            },
-            {
-                candidate: "Manish Agarwal",
-                company: "TechCorp Solutions",
-                position: "DevOps Intern",
-                matchScore: 79,
-                location: "Pune",
-                skills: ["Docker", "Kubernetes", "CI/CD"],
-                diversityFactors: ["General Category"],
-                reasons: ["DevOps skills", "Infrastructure interest", "Automation mindset"],
-                status: "Available",
-                cgpa: 7.7,
-                experience: "1 internship"
-            },
-            {
-                candidate: "Ravi Patel",
-                company: "EduTech Solutions",
-                position: "Mobile App Developer",
-                matchScore: 78,
-                location: "Ahmedabad",
-                skills: ["Flutter", "Mobile Development", "UI Design"],
-                diversityFactors: ["OBC Category", "Tier-2 City"],
-                reasons: ["Mobile development skills", "EdTech interest", "Regional representation"],
-                status: "Available",
-                cgpa: 7.6,
-                experience: "1 project"
-            },
-            {
-                candidate: "Neha Kapoor",
-                company: "FinanceFlow Ltd",
-                position: "Business Analyst Intern",
-                matchScore: 77,
-                location: "Delhi",
-                skills: ["Business Analysis", "Excel", "Presentation"],
-                diversityFactors: ["Female", "General Category"],
-                reasons: ["Business acumen", "Analytical skills", "Communication strength"],
-                status: "Available",
-                cgpa: 7.9,
-                experience: "1 internship"
-            },
-            {
-                candidate: "Deepak Singh",
-                company: "GreenTech Innovations",
-                position: "Research Intern",
-                matchScore: 76,
-                location: "Lucknow",
-                skills: ["Research Methodology", "Data Collection", "Report Writing"],
-                diversityFactors: ["ST Category", "Rural District"],
-                reasons: ["Research interest", "Methodical approach", "Diversity priority"],
-                status: "Available",
-                cgpa: 7.5,
-                experience: "1 project"
-            },
-            {
-                candidate: "Shreya Jain",
-                company: "HealthCare Plus",
-                position: "Quality Assurance Intern",
-                matchScore: 75,
-                location: "Indore",
-                skills: ["Testing", "Quality Control", "Documentation"],
-                diversityFactors: ["Female", "Tier-2 City"],
-                reasons: ["Quality focus", "Attention to detail", "Healthcare interest"],
-                status: "Available",
-                cgpa: 7.4,
-                experience: "1 internship"
-            },
-            {
-                candidate: "Arun Kumar",
-                company: "TechCorp Solutions",
-                position: "Technical Writer Intern",
-                matchScore: 74,
-                location: "Coimbatore",
-                skills: ["Technical Writing", "Documentation", "Communication"],
-                diversityFactors: ["SC Category", "South India"],
-                reasons: ["Writing skills", "Technical communication", "Regional diversity"],
-                status: "Available",
-                cgpa: 7.3,
-                experience: "1 project"
+            'Infrastructure & Construction': {
+                icon: '🏗️',
+                color: 'yellow',
+                description: 'Real-world experience in infrastructure development, construction management, urban planning, and sustainable building practices.',
+                duration: '6 months',
+                stipend: '₹25,000 - ₹40,000',
+                positions: 160,
+                skills: ['Project Management', 'Site Supervision', 'Technical Drawing', 'Safety Protocols', 'Quality Assurance'],
+                companies: {
+                    'L&T': ['Civil Engineer', 'Project Coordinator', 'Site Engineer', 'Quality Control Inspector'],
+                    'DLF': ['Construction Manager', 'Real Estate Analyst', 'Project Planning Officer', 'Safety Engineer'],
+                    'Godrej Properties': ['Urban Planner', 'Architecture Assistant', 'Property Manager', 'Sales Executive'],
+                    'Sobha': ['Structural Engineer', 'Interior Design Associate', 'Construction Supervisor', 'Cost Estimator'],
+                    'Brigade Group': ['Project Manager Trainee', 'Building Services Engineer', 'Landscape Architect', 'Facility Manager']
+                },
+                locations: ['Mumbai', 'Delhi', 'Bangalore', 'Pune', 'Hyderabad'],
+                requirements: 'B.Tech in Civil, Architecture, or related engineering disciplines. Field work capability essential.'
             }
-        ];
-
-        // Company capacity data
-        const companyCapacity = {
-            "TechCorp Solutions": { total: 8, filled: 0, remaining: 8 },
-            "FinanceFlow Ltd": { total: 6, filled: 0, remaining: 6 },
-            "HealthCare Plus": { total: 5, filled: 0, remaining: 5 },
-            "GreenTech Innovations": { total: 4, filled: 0, remaining: 4 },
-            "EduTech Solutions": { total: 3, filled: 0, remaining: 3 }
         };
 
-        document.getElementById('runMatchingBtn').addEventListener('click', function() {
-            const button = this;
-            const resultsDiv = document.getElementById('matchingResults');
-            const matchesList = document.getElementById('matchesList');
-            
-            // Show loading state
-            button.innerHTML = '<span class="pulse-animation">🤖</span> <span>AI Processing...</span>';
-            button.disabled = true;
-            
-            // Reset company capacity
-            Object.keys(companyCapacity).forEach(company => {
-                companyCapacity[company].filled = 0;
-                companyCapacity[company].remaining = companyCapacity[company].total;
-            });
-            
-            // Simulate AI processing time
-            setTimeout(() => {
-                // Show results
-                resultsDiv.classList.remove('hidden');
-                
-                // Clear previous results
-                matchesList.innerHTML = '';
-                
-                // Sort candidates by match score (highest first)
-                const sortedCandidates = [...allCandidates].sort((a, b) => b.matchScore - a.matchScore);
-                
-                // Update capacity overview
-                updateCapacityOverview();
-                
-                let matchedCount = 0;
-                let totalScore = 0;
-                
-                // Process matches based on capacity and ranking
-                sortedCandidates.forEach((candidate, index) => {
-                    const company = candidate.company;
-                    
-                    // Check if company has remaining capacity
-                    if (companyCapacity[company].remaining > 0) {
-                        candidate.status = "Matched";
-                        candidate.rank = matchedCount + 1;
-                        companyCapacity[company].filled++;
-                        companyCapacity[company].remaining--;
-                        matchedCount++;
-                        totalScore += candidate.matchScore;
-                    } else {
-                        candidate.status = "Waitlisted";
-                        candidate.rank = null;
-                    }
-                    
-                    // Add match element with delay
-                    setTimeout(() => {
-                        const matchElement = createMatchElement(candidate, index + 1);
-                        matchesList.appendChild(matchElement);
-                        
-                        // Animate in
-                        setTimeout(() => {
-                            matchElement.style.opacity = '1';
-                            matchElement.style.transform = 'translateY(0)';
-                        }, 100);
-                        
-                        // Update stats
-                        document.getElementById('matchedCount').textContent = matchedCount;
-                        if (matchedCount > 0) {
-                            document.getElementById('avgScore').textContent = (totalScore / matchedCount).toFixed(1) + '%';
-                        }
-                        
-                        // Update capacity overview
-                        updateCapacityOverview();
-                        
-                    }, index * 150);
-                });
-                
-                // Reset button
-                button.innerHTML = '<span>✅</span> <span>Matching Complete</span>';
-                button.classList.remove('from-green-500', 'to-green-600');
-                button.classList.add('from-blue-500', 'to-blue-600');
-                
-                setTimeout(() => {
-                    button.innerHTML = '<span>🤖</span> <span>Run AI Matching</span>';
-                    button.classList.remove('from-blue-500', 'to-blue-600');
-                    button.classList.add('from-green-500', 'to-green-600');
-                    button.disabled = false;
-                }, 3000);
-                
-            }, 2000);
-        });
+        // Sample candidate data with real email addresses
+        const candidateProfiles = {
+            'IT and Software Development': [
+                {
+                    name: 'Arjun Sharma',
+                    email: 'arjun.sharma2024@gmail.com',
+                    phone: '+91 9876543210',
+                    score: 96,
+                    location: 'Bangalore',
+                    education: 'B.Tech CSE, IIT Delhi',
+                    skills: ['Python', 'React', 'Machine Learning', 'AWS'],
+                    category: 'General',
+                    experience: 'Hackathon Winner, 2 Open Source Contributions',
+                    preference: 'AI/ML Engineer, Cloud Architect',
+                    expectedRole: 'Senior Software Developer, Machine Learning Engineer'
+                },
+                {
+                    name: 'Priya Patel',
+                    email: 'priya5@gmail.com',
+                    phone: '+91 9876543211',
+                    score: 94,
+                    location: 'Ahmedabad',
+                    education: 'B.Tech IT, NIT Surat',
+                    skills: ['Java', 'Spring Boot', 'Database Design', 'DevOps'],
+                    category: 'OBC',
+                    experience: 'Internship at Local Startup, Coding Competitions',
+                    preference: 'Backend Developer, DevOps Engineer',
+                    expectedRole: 'Backend Developer, System Administrator'
+                },
+                {
+                    name: 'Rahul Kumar',
+                    email: 'rahul.kumar.dev@gmail.com',
+                    phone: '+91 9876543212',
+                    score: 92,
+                    location: 'Patna',
+                    education: 'B.Tech CSE, NIT Patna',
+                    skills: ['JavaScript', 'Node.js', 'MongoDB', 'React Native'],
+                    category: 'SC',
+                    experience: 'Rural Tech Initiative Volunteer, App Development',
+                    preference: 'Rural Technology Solutions, Digital Literacy Programs',
+                    expectedRole: 'Junior Developer, Technical Support Specialist'
+                },
+                {
+                    name: 'Ananya Singh',
+                    email: 'ananya.tech@gmail.com',
+                    phone: '+91 9876543216',
+                    score: 90,
+                    location: 'Delhi',
+                    education: 'B.Tech CSE, DTU',
+                    skills: ['C++', 'Data Structures', 'Android Development', 'Firebase'],
+                    category: 'ST',
+                    experience: 'Mobile App Development Projects, Technical Blog Writer',
+                    preference: 'Tribal Area Digitization, Mobile App for Rural Communities',
+                    expectedRole: 'Mobile App Developer, Community Tech Coordinator'
+                }
+            ],
+            'Banking and Financial Services': [
+                {
+                    name: 'Sneha Reddy',
+                    email: 'sneha.finance@gmail.com',
+                    phone: '+91 9876543213',
+                    score: 95,
+                    location: 'Hyderabad',
+                    education: 'MBA Finance, IIM Bangalore',
+                    skills: ['Financial Modeling', 'Risk Analysis', 'Excel', 'SQL'],
+                    category: 'General',
+                    experience: 'Summer Internship at Regional Bank, CFA Level 1',
+                    preference: 'Investment Banking, Corporate Finance',
+                    expectedRole: 'Investment Banking Analyst, Risk Management Specialist'
+                },
+                {
+                    name: 'Amit Gupta',
+                    email: 'amit.banking@gmail.com',
+                    phone: '+91 9876543214',
+                    score: 91,
+                    location: 'Jaipur',
+                    education: 'B.Com, University of Rajasthan',
+                    skills: ['Accounting', 'Financial Analysis', 'Customer Service', 'MS Office'],
+                    category: 'OBC',
+                    experience: 'Part-time at Cooperative Bank, Finance Club President',
+                    preference: 'Retail Banking, Small Business Finance',
+                    expectedRole: 'Relationship Manager, Credit Analyst'
+                },
+                {
+                    name: 'Kavya Singh',
+                    email: 'kavya.banking@gmail.com',
+                    phone: '+91 9876543215',
+                    score: 89,
+                    location: 'Lucknow',
+                    education: 'BBA, Lucknow University',
+                    skills: ['Banking Operations', 'Digital Banking', 'Communication', 'Problem Solving'],
+                    category: 'General',
+                    experience: 'Banking Awareness Campaigns, Financial Literacy Volunteer',
+                    preference: 'Digital Banking, Financial Technology',
+                    expectedRole: 'Digital Banking Specialist, Operations Associate'
+                },
+                {
+                    name: 'Ravi Meena',
+                    email: 'ravi.meena.finance@gmail.com',
+                    phone: '+91 9876543217',
+                    score: 87,
+                    location: 'Kota',
+                    education: 'B.Com, Rajasthan University',
+                    skills: ['Banking Fundamentals', 'Customer Relations', 'Hindi/English Communication', 'Basic Computer'],
+                    category: 'ST',
+                    experience: 'Rural Banking Awareness Programs, Village Financial Literacy',
+                    preference: 'Tribal Area Banking, Financial Inclusion Programs',
+                    expectedRole: 'Rural Banking Officer, Microfinance Coordinator'
+                },
+                {
+                    name: 'Deepika Sharma',
+                    email: 'deepika.bank@gmail.com',
+                    phone: '+91 9876543218',
+                    score: 93,
+                    location: 'Mumbai',
+                    education: 'MBA Finance, NMIMS',
+                    skills: ['Investment Analysis', 'Portfolio Management', 'Financial Planning', 'Market Research'],
+                    category: 'SC',
+                    experience: 'Stock Market Analysis, Personal Finance Consulting',
+                    preference: 'Financial Inclusion, Community Banking',
+                    expectedRole: 'Financial Advisor, Community Banking Specialist'
+                }
+            ],
+            'Oil, Gas & Energy': [
+                {
+                    name: 'Vikram Yadav',
+                    email: 'vikram.energy@gmail.com',
+                    phone: '+91 9876543219',
+                    score: 94,
+                    location: 'Mumbai',
+                    education: 'B.Tech Petroleum Engineering, IIT Dhanbad',
+                    skills: ['Reservoir Engineering', 'Drilling Operations', 'Production Optimization', 'Safety Protocols'],
+                    category: 'OBC',
+                    experience: 'Summer Training at ONGC, Research on Enhanced Oil Recovery',
+                    preference: 'Rural Energy Infrastructure, Community Power Projects',
+                    expectedRole: 'Field Operations Engineer, Rural Electrification Specialist'
+                },
+                {
+                    name: 'Meera Tribal',
+                    email: 'meera.oil@gmail.com',
+                    phone: '+91 9876543220',
+                    score: 88,
+                    location: 'Ranchi',
+                    education: 'B.Tech Chemical Engineering, NIT Rourkela',
+                    skills: ['Process Engineering', 'Environmental Compliance', 'Safety Management', 'Project Coordination'],
+                    category: 'ST',
+                    experience: 'Environmental Impact Assessment Projects, Tribal Area Development',
+                    preference: 'Tribal Land Environmental Protection, Sustainable Energy for Remote Areas',
+                    expectedRole: 'Environmental Compliance Officer, Tribal Area Energy Coordinator'
+                },
+                {
+                    name: 'Suresh Kumar',
+                    email: 'suresh.energy@gmail.com',
+                    phone: '+91 9876543221',
+                    score: 91,
+                    location: 'Visakhapatnam',
+                    education: 'B.Tech Mechanical Engineering, Andhra University',
+                    skills: ['Mechanical Systems', 'Maintenance Planning', 'Quality Control', 'Technical Documentation'],
+                    category: 'SC',
+                    experience: 'Refinery Maintenance Projects, Industrial Safety Training',
+                    preference: 'Community Energy Programs, Skill Development in Energy Sector',
+                    expectedRole: 'Maintenance Technician, Community Energy Program Coordinator'
+                },
+                {
+                    name: 'Aditi Sharma',
+                    email: 'aditi.renewable@gmail.com',
+                    phone: '+91 9876543222',
+                    score: 92,
+                    location: 'Pune',
+                    education: 'B.Tech Electrical Engineering, COEP',
+                    skills: ['Renewable Energy Systems', 'Power Electronics', 'Grid Integration', 'Energy Storage'],
+                    category: 'General',
+                    experience: 'Solar Energy Projects, Smart Grid Research',
+                    preference: 'Advanced Renewable Technologies, Smart Grid Systems',
+                    expectedRole: 'Renewable Energy Engineer, Smart Grid Analyst'
+                }
+            ],
+            'FMCG': [
+                {
+                    name: 'Rohit Jain',
+                    email: 'rohit.fmcg@gmail.com',
+                    phone: '+91 9876543223',
+                    score: 89,
+                    location: 'Mumbai',
+                    education: 'MBA Marketing, XLRI',
+                    skills: ['Brand Management', 'Market Research', 'Consumer Behavior', 'Digital Marketing'],
+                    category: 'General',
+                    experience: 'Brand Management Internship, Consumer Research Projects',
+                    preference: 'Premium Brand Management, International Markets',
+                    expectedRole: 'Brand Manager, Marketing Strategy Lead'
+                },
+                {
+                    name: 'Sunita Devi',
+                    email: 'sunita.consumer@gmail.com',
+                    phone: '+91 9876543224',
+                    score: 85,
+                    location: 'Patna',
+                    education: 'B.Tech Food Technology, NIT Patna',
+                    skills: ['Food Processing', 'Quality Assurance', 'Supply Chain', 'Rural Marketing'],
+                    category: 'SC',
+                    experience: 'Rural Product Distribution, Food Safety Certification',
+                    preference: 'Rural Market Development, Community Product Distribution',
+                    expectedRole: 'Rural Sales Officer, Community Outreach Coordinator'
+                },
+                {
+                    name: 'Kiran Tribal',
+                    email: 'kiran.fmcg@gmail.com',
+                    phone: '+91 9876543225',
+                    score: 87,
+                    location: 'Bhopal',
+                    education: 'MBA Operations, IIM Indore',
+                    skills: ['Supply Chain Management', 'Operations Research', 'Logistics', 'Vendor Management'],
+                    category: 'ST',
+                    experience: 'Tribal Area Market Development, Supply Chain Optimization',
+                    preference: 'Tribal Area Supply Chain, Indigenous Product Development',
+                    expectedRole: 'Tribal Market Specialist, Indigenous Products Manager'
+                },
+                {
+                    name: 'Pooja Yadav',
+                    email: 'pooja.marketing@gmail.com',
+                    phone: '+91 9876543226',
+                    score: 91,
+                    location: 'Delhi',
+                    education: 'MBA Marketing, FMS Delhi',
+                    skills: ['Digital Marketing', 'Social Media Strategy', 'Content Marketing', 'Analytics'],
+                    category: 'OBC',
+                    experience: 'Digital Campaign Management, E-commerce Marketing',
+                    preference: 'Regional Digital Marketing, Local Brand Promotion',
+                    expectedRole: 'Regional Marketing Manager, Digital Campaign Specialist'
+                }
+            ],
+            'Telecom': [
+                {
+                    name: 'Rajesh Telecom',
+                    email: 'rajesh.telecom@gmail.com',
+                    phone: '+91 9876543227',
+                    score: 93,
+                    location: 'Bangalore',
+                    education: 'B.Tech Electronics & Communication, IIIT Bangalore',
+                    skills: ['5G Technology', 'Network Optimization', 'RF Engineering', 'Signal Processing'],
+                    category: 'General',
+                    experience: '5G Research Projects, Network Performance Analysis',
+                    preference: 'Advanced 5G Research, Network Architecture Design',
+                    expectedRole: '5G Network Engineer, RF Design Specialist'
+                },
+                {
+                    name: 'Tribal Kumari',
+                    email: 'tribal.network@gmail.com',
+                    phone: '+91 9876543228',
+                    score: 86,
+                    location: 'Ranchi',
+                    education: 'B.Tech Computer Science, NIT Jamshedpur',
+                    skills: ['Network Administration', 'Cybersecurity', 'Database Management', 'Technical Support'],
+                    category: 'ST',
+                    experience: 'Rural Connectivity Projects, Digital Literacy Programs',
+                    preference: 'Tribal Area Connectivity, Digital Inclusion Programs',
+                    expectedRole: 'Rural Network Coordinator, Digital Literacy Specialist'
+                },
+                {
+                    name: 'Manish Kumar',
+                    email: 'manish.5g@gmail.com',
+                    phone: '+91 9876543229',
+                    score: 90,
+                    location: 'Hyderabad',
+                    education: 'B.Tech Telecommunications, JNTU',
+                    skills: ['Network Planning', 'Telecom Infrastructure', 'Project Management', 'Customer Solutions'],
+                    category: 'SC',
+                    experience: 'Telecom Infrastructure Development, Customer Service Excellence',
+                    preference: 'Community Network Development, Affordable Connectivity Solutions',
+                    expectedRole: 'Network Planning Associate, Community Connectivity Manager'
+                },
+                {
+                    name: 'Neha Patel',
+                    email: 'neha.telecom@gmail.com',
+                    phone: '+91 9876543230',
+                    score: 88,
+                    location: 'Ahmedabad',
+                    education: 'B.Tech Electronics, NIT Surat',
+                    skills: ['Mobile Technology', 'IoT Systems', 'Data Analytics', 'Technical Documentation'],
+                    category: 'OBC',
+                    experience: 'IoT Project Development, Mobile App Testing',
+                    preference: 'Regional IoT Solutions, Local Mobile Services',
+                    expectedRole: 'IoT Solutions Developer, Regional Technical Support'
+                }
+            ],
+            'Manufacturing': [
+                {
+                    name: 'Arun Manufacturing',
+                    email: 'arun.manufacturing@gmail.com',
+                    phone: '+91 9876543231',
+                    score: 92,
+                    location: 'Pune',
+                    education: 'B.Tech Mechanical Engineering, COEP',
+                    skills: ['Production Planning', 'Quality Control', 'Lean Manufacturing', 'Automation'],
+                    category: 'General',
+                    experience: 'Automotive Manufacturing Internship, Six Sigma Green Belt',
+                    preference: 'Advanced Manufacturing Technologies, Automation Systems',
+                    expectedRole: 'Production Manager, Automation Engineer'
+                },
+                {
+                    name: 'Santosh Tribal',
+                    email: 'santosh.production@gmail.com',
+                    phone: '+91 9876543232',
+                    score: 87,
+                    location: 'Raipur',
+                    education: 'B.Tech Industrial Engineering, NIT Raipur',
+                    skills: ['Industrial Engineering', 'Process Improvement', 'Safety Management', 'Cost Optimization'],
+                    category: 'ST',
+                    experience: 'Tribal Industrial Development, Safety Protocol Implementation',
+                    preference: 'Tribal Area Industrial Development, Traditional Craft Modernization',
+                    expectedRole: 'Tribal Industries Coordinator, Traditional Craft Development Officer'
+                },
+                {
+                    name: 'Ravi Production',
+                    email: 'ravi.manufacturing@gmail.com',
+                    phone: '+91 9876543233',
+                    score: 89,
+                    location: 'Chennai',
+                    education: 'B.Tech Production Engineering, Anna University',
+                    skills: ['Manufacturing Processes', 'Tool Design', 'CNC Programming', 'Quality Assurance'],
+                    category: 'SC',
+                    experience: 'Manufacturing Process Optimization, Tool Design Projects',
+                    preference: 'Skill Development Programs, Community Manufacturing',
+                    expectedRole: 'Production Technician, Skills Training Coordinator'
+                },
+                {
+                    name: 'Priya Manufacturing',
+                    email: 'priya.industrial@gmail.com',
+                    phone: '+91 9876543234',
+                    score: 90,
+                    location: 'Coimbatore',
+                    education: 'B.Tech Mechanical Engineering, PSG Tech',
+                    skills: ['CAD/CAM', 'Product Design', 'Manufacturing Systems', 'Project Management'],
+                    category: 'OBC',
+                    experience: 'Product Design Projects, Manufacturing System Analysis',
+                    preference: 'Regional Manufacturing Development, Local Product Design',
+                    expectedRole: 'Regional Manufacturing Specialist, Product Development Associate'
+                }
+            ],
+            'Travel & Hospitality': [
+                {
+                    name: 'Anjali Hospitality',
+                    email: 'anjali.hospitality@gmail.com',
+                    phone: '+91 9876543235',
+                    score: 91,
+                    location: 'Goa',
+                    education: 'Hotel Management, IHM Goa',
+                    skills: ['Hotel Operations', 'Customer Service', 'Event Management', 'Tourism Planning'],
+                    category: 'General',
+                    experience: 'Luxury Hotel Internship, Event Coordination',
+                    preference: 'Luxury Hospitality Management, International Tourism',
+                    expectedRole: 'Hotel Operations Manager, Event Management Specialist'
+                },
+                {
+                    name: 'Tribal Tourism',
+                    email: 'tribal.tourism@gmail.com',
+                    phone: '+91 9876543236',
+                    score: 84,
+                    location: 'Shillong',
+                    education: 'B.A. Tourism, NEHU',
+                    skills: ['Cultural Tourism', 'Local Guide Services', 'Eco-tourism', 'Community Development'],
+                    category: 'ST',
+                    experience: 'Tribal Tourism Development, Cultural Heritage Projects',
+                    preference: 'Tribal Heritage Tourism, Indigenous Culture Promotion',
+                    expectedRole: 'Tribal Tourism Coordinator, Cultural Heritage Guide'
+                },
+                {
+                    name: 'Sunil Travel',
+                    email: 'sunil.travel@gmail.com',
+                    phone: '+91 9876543237',
+                    score: 88,
+                    location: 'Jaipur',
+                    education: 'MBA Tourism, Rajasthan University',
+                    skills: ['Travel Planning', 'Customer Relations', 'Tour Operations', 'Digital Marketing'],
+                    category: 'SC',
+                    experience: 'Heritage Tourism Projects, Travel Agency Operations',
+                    preference: 'Community Tourism Development, Accessible Travel Services',
+                    expectedRole: 'Community Tourism Officer, Accessible Travel Coordinator'
+                },
+                {
+                    name: 'Kavita Hotel',
+                    email: 'kavita.hotel@gmail.com',
+                    phone: '+91 9876543238',
+                    score: 89,
+                    location: 'Mumbai',
+                    education: 'Hotel Management, IHM Mumbai',
+                    skills: ['Front Office Operations', 'Food & Beverage', 'Housekeeping', 'Revenue Management'],
+                    category: 'OBC',
+                    experience: 'Five-star Hotel Training, Customer Service Excellence',
+                    preference: 'Regional Hospitality Development, Local Tourism Promotion',
+                    expectedRole: 'Regional Hospitality Manager, Local Tourism Specialist'
+                }
+            ],
+            'Healthcare': [
+                {
+                    name: 'Dr. Amit Health',
+                    email: 'amit.healthcare@gmail.com',
+                    phone: '+91 9876543239',
+                    score: 95,
+                    location: 'Delhi',
+                    education: 'MBBS, AIIMS Delhi',
+                    skills: ['Clinical Medicine', 'Patient Care', 'Medical Research', 'Healthcare Administration'],
+                    category: 'General',
+                    experience: 'Clinical Rotations, Medical Research Projects',
+                    preference: 'Advanced Medical Research, Specialized Healthcare',
+                    expectedRole: 'Medical Research Associate, Clinical Specialist'
+                },
+                {
+                    name: 'Tribal Nurse',
+                    email: 'tribal.healthcare@gmail.com',
+                    phone: '+91 9876543240',
+                    score: 86,
+                    location: 'Imphal',
+                    education: 'B.Sc Nursing, RIMS Imphal',
+                    skills: ['Patient Care', 'Community Health', 'Preventive Medicine', 'Health Education'],
+                    category: 'ST',
+                    experience: 'Rural Health Programs, Community Health Worker',
+                    preference: 'Tribal Community Health, Traditional Medicine Integration',
+                    expectedRole: 'Tribal Health Coordinator, Community Health Worker'
+                },
+                {
+                    name: 'Sunita Medical',
+                    email: 'sunita.medical@gmail.com',
+                    phone: '+91 9876543241',
+                    score: 90,
+                    location: 'Chennai',
+                    education: 'Pharmacy, Tamil Nadu Dr. MGR University',
+                    skills: ['Pharmaceutical Sciences', 'Drug Information', 'Clinical Pharmacy', 'Quality Control'],
+                    category: 'SC',
+                    experience: 'Hospital Pharmacy Training, Drug Safety Research',
+                    preference: 'Community Pharmacy Services, Affordable Healthcare',
+                    expectedRole: 'Community Pharmacist, Healthcare Access Coordinator'
+                },
+                {
+                    name: 'Rajesh Pharma',
+                    email: 'rajesh.pharma@gmail.com',
+                    phone: '+91 9876543242',
+                    score: 88,
+                    location: 'Hyderabad',
+                    education: 'Hospital Administration, Osmania University',
+                    skills: ['Healthcare Management', 'Hospital Operations', 'Health Information Systems', 'Quality Assurance'],
+                    category: 'OBC',
+                    experience: 'Hospital Administration Internship, Healthcare IT Projects',
+                    preference: 'Regional Healthcare Management, Rural Hospital Administration',
+                    expectedRole: 'Regional Healthcare Administrator, Rural Health Program Manager'
+                }
+            ],
+            'Infrastructure & Construction': [
+                {
+                    name: 'Vikash Construction',
+                    email: 'vikash.construction@gmail.com',
+                    phone: '+91 9876543243',
+                    score: 93,
+                    location: 'Mumbai',
+                    education: 'B.Tech Civil Engineering, IIT Bombay',
+                    skills: ['Structural Design', 'Project Management', 'Construction Planning', 'Quality Control'],
+                    category: 'General',
+                    experience: 'Infrastructure Projects, Structural Analysis',
+                    preference: 'Large Scale Infrastructure, Smart City Development',
+                    expectedRole: 'Project Manager, Structural Design Engineer'
+                },
+                {
+                    name: 'Tribal Builder',
+                    email: 'tribal.construction@gmail.com',
+                    phone: '+91 9876543244',
+                    score: 85,
+                    location: 'Guwahati',
+                    education: 'B.Tech Civil Engineering, NIT Silchar',
+                    skills: ['Rural Construction', 'Sustainable Building', 'Community Development', 'Environmental Engineering'],
+                    category: 'ST',
+                    experience: 'Rural Infrastructure Development, Sustainable Construction',
+                    preference: 'Tribal Area Infrastructure, Traditional Building Techniques',
+                    expectedRole: 'Tribal Infrastructure Coordinator, Sustainable Construction Specialist'
+                },
+                {
+                    name: 'Ramesh Civil',
+                    email: 'ramesh.civil@gmail.com',
+                    phone: '+91 9876543245',
+                    score: 89,
+                    location: 'Bangalore',
+                    education: 'B.Tech Civil Engineering, BMS College',
+                    skills: ['Site Engineering', 'Construction Management', 'Safety Protocols', 'Quality Assurance'],
+                    category: 'SC',
+                    experience: 'Construction Site Management, Safety Implementation',
+                    preference: 'Community Housing Projects, Affordable Construction',
+                    expectedRole: 'Site Supervisor, Community Housing Coordinator'
+                },
+                {
+                    name: 'Geeta Architecture',
+                    email: 'geeta.architecture@gmail.com',
+                    phone: '+91 9876543246',
+                    score: 91,
+                    location: 'Pune',
+                    education: 'B.Arch, CEPT University',
+                    skills: ['Architectural Design', 'Urban Planning', 'Building Information Modeling', 'Sustainable Design'],
+                    category: 'OBC',
+                    experience: 'Architectural Design Projects, Urban Planning Studies',
+                    preference: 'Regional Urban Planning, Local Architecture Development',
+                    expectedRole: 'Regional Planning Associate, Local Architecture Specialist'
+                }
+            ]
+        };
 
-        function createMatchElement(match, overallRank) {
-            const div = document.createElement('div');
-            const isMatched = match.status === "Matched";
-            const isWaitlisted = match.status === "Waitlisted";
-            
-            div.className = `card-hover ${isMatched ? 'bg-gradient-to-r from-green-50 to-white border-green-200' : isWaitlisted ? 'bg-gradient-to-r from-orange-50 to-white border-orange-200' : 'bg-gradient-to-r from-white to-gray-50 border-gray-200'} border rounded-lg p-6 transition-all duration-300`;
-            div.style.opacity = '0';
-            div.style.transform = 'translateY(20px)';
-            
-            div.innerHTML = `
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center space-x-4">
-                        <div class="relative">
-                            <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
-                                ${match.candidate.split(' ').map(n => n[0]).join('')}
+        // Initialize the application
+        function initializeApp() {
+            renderSectors();
+        }
+
+        // Render sector list
+        function renderSectors() {
+            const sectorList = document.getElementById('sectorList');
+            sectorList.innerHTML = '';
+
+            Object.keys(sectors).forEach(sectorName => {
+                const sector = sectors[sectorName];
+                const sectorElement = document.createElement('div');
+                sectorElement.className = `p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-${sector.color}-500 hover:bg-${sector.color}-50 transition-all duration-200 sector-item`;
+                sectorElement.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">${sector.icon}</span>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">${sectorName}</h4>
+                                <p class="text-sm text-gray-600">${sector.positions} positions</p>
                             </div>
-                            <div class="absolute -top-2 -right-2 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
-                                ${overallRank}
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-medium text-${sector.color}-600">${sector.stipend}</div>
+                            <div class="text-xs text-gray-500">${sector.duration}</div>
+                        </div>
+                    </div>
+                `;
+                sectorElement.addEventListener('click', () => selectSector(sectorName));
+                sectorList.appendChild(sectorElement);
+            });
+        }
+
+        // Select sector and show details
+        function selectSector(sectorName) {
+            // Update active sector styling
+            document.querySelectorAll('.sector-item').forEach(item => {
+                item.classList.remove('border-blue-500', 'bg-blue-50');
+                item.classList.add('border-gray-200');
+            });
+            event.currentTarget.classList.remove('border-gray-200');
+            event.currentTarget.classList.add('border-blue-500', 'bg-blue-50');
+
+            const sector = sectors[sectorName];
+            const internshipDetails = document.getElementById('internshipDetails');
+            const candidatesSection = document.getElementById('candidatesSection');
+
+            // Update filters for the selected sector
+            updateFilters(sectorName);
+
+            // Show internship details
+            internshipDetails.innerHTML = `
+                <div class="fade-in">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-16 h-16 bg-${sector.color}-100 rounded-xl flex items-center justify-center">
+                                <span class="text-3xl">${sector.icon}</span>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-800">${sectorName}</h2>
+                                <p class="text-gray-600">Internship Program</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-${sector.color}-600">${sector.positions}</div>
+                            <div class="text-sm text-gray-600">Available Positions</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">💰 Stipend Range</h4>
+                            <p class="text-lg font-bold text-${sector.color}-600">${sector.stipend}</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">⏱️ Duration</h4>
+                            <p class="text-lg font-bold text-${sector.color}-600">${sector.duration}</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-3">📋 Program Description</h4>
+                        <p class="text-gray-700 leading-relaxed">${sector.description}</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-3">🎯 Key Skills</h4>
+                            <div class="flex flex-wrap gap-2">
+                                ${sector.skills.map(skill => `<span class="bg-${sector.color}-100 text-${sector.color}-700 px-3 py-1 rounded-full text-sm font-medium">${skill}</span>`).join('')}
                             </div>
                         </div>
                         <div>
-                            <div class="flex items-center space-x-2">
-                                <h4 class="font-semibold text-lg">${match.candidate}</h4>
-                                ${isMatched ? '<span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">✓ MATCHED</span>' : ''}
-                                ${isWaitlisted ? '<span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs font-semibold">⏳ WAITLISTED</span>' : ''}
-                            </div>
-                            <p class="text-gray-600">${match.company} - ${match.position}</p>
-                            <div class="flex items-center space-x-4 text-sm text-gray-500">
-                                <span>📍 ${match.location}</span>
-                                <span>🎓 CGPA: ${match.cgpa}</span>
-                                <span>💼 ${match.experience}</span>
+                            <h4 class="font-semibold text-gray-800 mb-3">📍 Locations</h4>
+                            <div class="flex flex-wrap gap-2">
+                                ${sector.locations.map(location => `<span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">${location}</span>`).join('')}
                             </div>
                         </div>
                     </div>
-                    <div class="text-right">
-                        <div class="match-score text-white px-4 py-2 rounded-lg font-bold text-lg mb-2">
-                            ${match.matchScore}% Match
-                        </div>
-                        ${match.rank ? `<div class="text-sm text-green-600 font-semibold">Rank #${match.rank} Selected</div>` : '<div class="text-sm text-orange-600 font-semibold">Position Filled</div>'}
-                    </div>
-                </div>
-                
-                <div class="grid md:grid-cols-4 gap-4 mb-4">
-                    <div>
-                        <h5 class="font-semibold text-sm text-gray-700 mb-2">Skills Match</h5>
-                        <div class="flex flex-wrap gap-1">
-                            ${match.skills.map(skill => `<span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">${skill}</span>`).join('')}
-                        </div>
-                    </div>
-                    <div>
-                        <h5 class="font-semibold text-sm text-gray-700 mb-2">Diversity Factors</h5>
-                        <div class="flex flex-wrap gap-1">
-                            ${match.diversityFactors.map(factor => `<span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">${factor}</span>`).join('')}
+
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-3">🏢 Partner Companies & Roles</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            ${Object.entries(sector.companies).map(([company, roles]) => `
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <h5 class="font-semibold text-gray-800 mb-2">${company}</h5>
+                                    <div class="flex flex-wrap gap-1">
+                                        ${roles.slice(0, 3).map(role => `<span class="bg-white text-gray-600 px-2 py-1 rounded text-xs">${role}</span>`).join('')}
+                                        ${roles.length > 3 ? `<span class="text-gray-500 text-xs">+${roles.length - 3} more</span>` : ''}
+                                    </div>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
-                    <div>
-                        <h5 class="font-semibold text-sm text-gray-700 mb-2">Match Reasons</h5>
-                        <div class="space-y-1">
-                            ${match.reasons.map(reason => `<p class="text-xs text-gray-600">• ${reason}</p>`).join('')}
-                        </div>
-                    </div>
-                    <div>
-                        <h5 class="font-semibold text-sm text-gray-700 mb-2">Status</h5>
-                        <div class="space-y-1 text-xs">
-                            <p class="text-gray-600">Overall Rank: #${overallRank}</p>
-                            <p class="text-gray-600">Score: ${match.matchScore}%</p>
-                            ${isMatched ? `<p class="text-green-600 font-semibold">Selected for Position</p>` : ''}
-                            ${isWaitlisted ? `<p class="text-orange-600 font-semibold">On Waiting List</p>` : ''}
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="flex justify-between items-center">
-                    <div class="text-sm text-gray-500">
-                        Company Capacity: ${companyCapacity[match.company].filled}/${companyCapacity[match.company].total} filled
-                    </div>
-                    <div class="flex space-x-3">
-                        <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm hover:bg-gray-200 transition-colors">
-                            View Profile
-                        </button>
-                        ${isMatched ? 
-                            '<button class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600 transition-colors">✓ Confirmed</button>' :
-                            '<button class="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-orange-600 transition-colors">Add to Priority</button>'
-                        }
+
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">📚 Requirements</h4>
+                        <p class="text-blue-700">${sector.requirements}</p>
                     </div>
                 </div>
             `;
-            
-            return div;
+
+            // Show matched candidates
+            candidatesSection.style.display = 'block';
+            renderCandidates(sectorName);
         }
 
-        function updateCapacityOverview() {
-            const capacityGrid = document.getElementById('capacityGrid');
-            capacityGrid.innerHTML = '';
+        // Render matched candidates
+        function renderCandidates(sectorName) {
+            const candidatesList = document.getElementById('candidatesList');
+            const candidates = candidateProfiles[sectorName] || [];
             
-            Object.entries(companyCapacity).forEach(([company, data]) => {
-                const percentage = (data.filled / data.total) * 100;
-                const card = document.createElement('div');
-                card.className = 'bg-white rounded-lg p-3 border';
-                card.innerHTML = `
-                    <h4 class="font-semibold text-sm text-gray-800 mb-2">${company}</h4>
-                    <div class="flex items-center justify-between text-xs mb-2">
-                        <span class="text-gray-600">${data.filled}/${data.total} filled</span>
-                        <span class="font-semibold ${percentage === 100 ? 'text-red-600' : percentage > 50 ? 'text-orange-600' : 'text-green-600'}">${percentage.toFixed(0)}%</span>
+            // Sort candidates by score (highest to lowest)
+            const sortedCandidates = candidates.sort((a, b) => b.score - a.score);
+
+            candidatesList.innerHTML = sortedCandidates.map((candidate, index) => `
+                <div class="border border-gray-200 rounded-lg p-6 mb-4 hover:shadow-lg transition-all duration-200 fade-in" style="animation-delay: ${index * 0.1}s">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                                ${candidate.name.charAt(0)}
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800">${candidate.name}</h4>
+                                <p class="text-gray-600">${candidate.education}</p>
+                                <div class="flex items-center space-x-4 mt-1">
+                                    <span class="text-sm text-gray-500">📍 ${candidate.location}</span>
+                                    <span class="text-sm bg-${candidate.category === 'SC' ? 'green' : candidate.category === 'OBC' ? 'yellow' : 'blue'}-100 text-${candidate.category === 'SC' ? 'green' : candidate.category === 'OBC' ? 'yellow' : 'blue'}-700 px-2 py-1 rounded">${candidate.category}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-2xl font-bold text-green-600">${candidate.score}%</span>
+                                <div class="w-16 h-2 bg-gray-200 rounded-full">
+                                    <div class="h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full" style="width: ${candidate.score}%"></div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500">Match Score</p>
+                        </div>
                     </div>
-                    <div class="w-full bg-gray-200 rounded-full h-2">
-                        <div class="h-2 rounded-full transition-all duration-500 ${percentage === 100 ? 'bg-red-500' : percentage > 50 ? 'bg-orange-500' : 'bg-green-500'}" style="width: ${percentage}%"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <h5 class="font-semibold text-gray-700 mb-2">🛠️ Technical Skills</h5>
+                            <div class="flex flex-wrap gap-1">
+                                ${candidate.skills.map(skill => `<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">${skill}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-gray-700 mb-2">💼 Experience</h5>
+                            <p class="text-sm text-gray-600">${candidate.experience}</p>
+                        </div>
                     </div>
-                    <p class="text-xs text-gray-500 mt-1">${data.remaining} positions remaining</p>
-                `;
-                capacityGrid.appendChild(card);
-            });
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <h5 class="font-semibold text-gray-700 mb-2">🎯 Preferences</h5>
+                            <p class="text-sm text-gray-600">${candidate.preference}</p>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-gray-700 mb-2">💼 Expected Role</h5>
+                            <p class="text-sm text-blue-600 font-medium">${candidate.expectedRole}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-3">
+                        <button onclick="selectCandidate('${candidate.name}', '${candidate.email}', '${candidate.phone}')" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm font-medium">
+                            ✅ Select Candidate
+                        </button>
+                        <button onclick="viewProfile('${candidate.name}')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium">
+                            📄 View Full Profile
+                        </button>
+                        <button onclick="scheduleInterview('${candidate.name}', '${candidate.email}', '${candidate.phone}')" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm font-medium">
+                            📞 Schedule Interview
+                        </button>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // Add some interactive elements
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const parent = this.closest('.bg-blue-50, .bg-green-50, .bg-orange-50');
-                if (this.checked) {
-                    parent.style.opacity = '1';
-                } else {
-                    parent.style.opacity = '0.6';
+        // Global variables
+        let currentSector = '';
+        let selectedCompany = '';
+        let selectedRole = '';
+        let selectedCandidates = [];
+        let currentTab = 'available';
+        let selectedSectorFilter = 'all';
+
+        // Update sector display after position change
+        function updateSectorDisplay() {
+            if (currentSector) {
+                // Update the sector list display
+                renderSectors();
+                // Update the internship details
+                const sector = sectors[currentSector];
+                const positionElement = document.querySelector('.text-2xl.font-bold.text-' + sector.color + '-600');
+                if (positionElement) {
+                    positionElement.textContent = sector.positions;
                 }
+            }
+        }
+
+        // Update company and role dropdowns when sector changes
+        function updateFilters(sectorName) {
+            currentSector = sectorName;
+            const sector = sectors[sectorName];
+            const companyFilter = document.getElementById('companyFilter');
+            const roleFilter = document.getElementById('roleFilter');
+
+            // Update company dropdown
+            companyFilter.innerHTML = '<option value="">All Companies</option>';
+            Object.keys(sector.companies).forEach(company => {
+                companyFilter.innerHTML += `<option value="${company}">${company}</option>`;
             });
-        });
+
+            // Clear role dropdown
+            roleFilter.innerHTML = '<option value="">Select Company First</option>';
+
+            // Add event listener for company selection
+            companyFilter.onchange = function() {
+                selectedCompany = this.value;
+                updateRoleDropdown();
+            };
+        }
+
+        // Update role dropdown based on selected company
+        function updateRoleDropdown() {
+            const roleFilter = document.getElementById('roleFilter');
+            
+            if (!selectedCompany || !currentSector) {
+                roleFilter.innerHTML = '<option value="">Select Company First</option>';
+                return;
+            }
+
+            const roles = sectors[currentSector].companies[selectedCompany];
+            roleFilter.innerHTML = '<option value="">All Roles</option>';
+            roles.forEach(role => {
+                roleFilter.innerHTML += `<option value="${role}">${role}</option>`;
+            });
+
+            roleFilter.onchange = function() {
+                selectedRole = this.value;
+            };
+        }
+
+        // Select candidate function
+        function selectCandidate(name, email, phone) {
+            const company = selectedCompany || 'TCS'; // Default company
+            const role = selectedRole || 'Software Developer'; // Default role
+            
+            // Find candidate details from current sector
+            const candidates = candidateProfiles[currentSector] || [];
+            const candidateData = candidates.find(c => c.name === name);
+            
+            if (!candidateData) return;
+
+            // Create unique ID for candidate
+            const candidateId = `${currentSector}_${name}_${Date.now()}`;
+            
+            // Add to selected candidates
+            const selectedCandidate = {
+                id: candidateId,
+                name: candidateData.name,
+                email: candidateData.email,
+                phone: candidateData.phone,
+                sector: currentSector,
+                company: company,
+                role: role,
+                score: candidateData.score,
+                education: candidateData.education,
+                location: candidateData.location,
+                category: candidateData.category,
+                skills: candidateData.skills,
+                experience: candidateData.experience,
+                preference: candidateData.preference,
+                selectedDate: new Date().toLocaleDateString()
+            };
+
+            selectedCandidates.push(selectedCandidate);
+            updateSelectedCount();
+            
+            // Update available positions
+            if (currentSector && sectors[currentSector]) {
+                sectors[currentSector].positions -= 1;
+                updateSectorDisplay();
+            }
+            
+            // Show confirmation modal
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-xl p-4 max-w-lg w-full max-h-screen overflow-y-auto fade-in">
+                    <div class="text-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-green-600 text-xl">✅</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Candidate Selected!</h3>
+                        <p class="text-gray-600 text-sm">Sending shortlist notification to ${name}</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-2 text-sm">Selection Details:</h4>
+                        <p class="text-xs text-gray-600"><strong>Candidate:</strong> ${name}</p>
+                        <p class="text-xs text-gray-600"><strong>Company:</strong> ${company}</p>
+                        <p class="text-xs text-gray-600"><strong>Role:</strong> ${role}</p>
+                        <p class="text-xs text-gray-600"><strong>Email:</strong> ${email}</p>
+                        <p class="text-xs text-gray-600"><strong>Phone:</strong> ${phone}</p>
+                    </div>
+
+                    <div class="bg-green-50 rounded-lg p-3 mb-4">
+                        <h4 class="font-semibold text-green-800 mb-2 text-sm">✅ Email Sent Successfully!</h4>
+                        <p class="text-xs text-green-700 mb-2">
+                            <strong>To:</strong> ${email}<br>
+                            <strong>Subject:</strong> Congratulations! You're Shortlisted for PM Internship
+                        </p>
+                        <div class="bg-white rounded p-2 text-xs text-gray-700 border-l-4 border-green-400 max-h-32 overflow-y-auto">
+                            "Dear ${name},<br><br>
+                            Congratulations! You have been successfully shortlisted for the <strong>${role}</strong> position at <strong>${company}</strong> 
+                            under the PM Internship Scheme.<br><br>
+                            Your application scored <strong>high marks</strong> in our AI-powered matching system. 
+                            Please check your email for further instructions and interview details.<br><br>
+                            Next Steps: Our team will contact you within 24 hours to schedule your interview.<br><br>
+                            Best regards,<br>
+                            PM Internship Team"
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-2">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="flex-1 bg-gray-600 text-white py-2 px-3 rounded-lg hover:bg-gray-700 transition-colors text-sm">
+                            Close
+                        </button>
+                        <button onclick="scheduleInterview('${name}', '${email}', '${phone}'); this.parentElement.parentElement.parentElement.remove();" class="flex-1 bg-purple-600 text-white py-2 px-3 rounded-lg hover:bg-purple-700 transition-colors text-sm">
+                            Schedule Interview
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Schedule interview function
+        function scheduleInterview(name, email, phone) {
+            const company = selectedCompany || 'TCS';
+            const role = selectedRole || 'Software Developer';
+            
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-xl p-4 max-w-lg w-full max-h-screen overflow-y-auto fade-in">
+                    <div class="text-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-purple-600 text-xl">📅</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Schedule Interview</h3>
+                        <p class="text-gray-600 text-sm">Set up interview for ${name}</p>
+                    </div>
+                    
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Interview Date</label>
+                            <input type="date" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 text-sm" 
+                                   min="${new Date().toISOString().split('T')[0]}">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Interview Time</label>
+                            <input type="time" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Interview Mode</label>
+                            <select class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 text-sm">
+                                <option>Video Call (Google Meet)</option>
+                                <option>Video Call (Zoom)</option>
+                                <option>Phone Interview</option>
+                                <option>In-Person Interview</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Interviewer</label>
+                            <input type="text" placeholder="Enter interviewer name" 
+                                   class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Additional Notes</label>
+                            <textarea placeholder="Any special instructions or requirements..." 
+                                      class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 h-16 text-sm"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-3 mb-4">
+                        <h4 class="font-semibold text-blue-800 mb-2 text-sm">📧 Interview Email Template:</h4>
+                        <div class="bg-white rounded p-2 text-xs text-gray-700 border-l-4 border-blue-400 max-h-24 overflow-y-auto">
+                            <strong>To:</strong> ${email}<br>
+                            <strong>Subject:</strong> Interview Scheduled - ${role} Position at ${company}<br><br>
+                            "Dear ${name},<br><br>
+                            Your interview for the <strong>${role}</strong> position at <strong>${company}</strong> has been scheduled.<br><br>
+                            <strong>Interview Details:</strong><br>
+                            • Date & Time: [Will be filled from form above]<br>
+                            • Mode: [Selected interview mode]<br>
+                            • Interviewer: [Selected interviewer]<br>
+                            • Contact: ${phone}<br><br>
+                            Please confirm your availability and prepare accordingly.<br><br>
+                            Best regards,<br>
+                            PM Internship Team"
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-2">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="flex-1 bg-gray-600 text-white py-2 px-3 rounded-lg hover:bg-gray-700 transition-colors text-sm">
+                            Cancel
+                        </button>
+                        <button onclick="confirmInterview('${name}', '${email}'); this.parentElement.parentElement.parentElement.remove();" class="flex-1 bg-purple-600 text-white py-2 px-3 rounded-lg hover:bg-purple-700 transition-colors text-sm">
+                            Send Interview Invite
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Confirm interview scheduling
+        function confirmInterview(name, email) {
+            const successModal = document.createElement('div');
+            successModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            successModal.innerHTML = `
+                <div class="bg-white rounded-xl p-4 max-w-md w-full max-h-screen overflow-y-auto fade-in">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-green-600 text-xl">✅</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Interview Successfully Scheduled!</h3>
+                        <div class="bg-green-50 rounded-lg p-3 mb-3">
+                            <p class="text-green-700 text-xs mb-2">
+                                <strong>✅ Email sent successfully to:</strong><br>
+                                ${email}
+                            </p>
+                            <p class="text-green-700 text-xs">
+                                <strong>📧 Subject:</strong> Interview Scheduled - PM Internship Program<br>
+                                <strong>👤 Candidate:</strong> ${name}<br>
+                                <strong>📅 Status:</strong> Interview invitation delivered
+                            </p>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">The candidate will receive all interview details and confirmation instructions via email.</p>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors text-sm">
+                            Done
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(successModal);
+        }
+
+        // View profile function
+        function viewProfile(name) {
+            // Find candidate details from current sector
+            const candidates = candidateProfiles[currentSector] || [];
+            const candidateData = candidates.find(c => c.name === name);
+            
+            if (!candidateData) {
+                alert('Candidate profile not found.');
+                return;
+            }
+
+            const sector = sectors[currentSector];
+            
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-xl p-6 max-w-4xl w-full max-h-screen overflow-y-auto fade-in">
+                    <!-- Header -->
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+                                ${candidateData.name.charAt(0)}
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-800">${candidateData.name}</h2>
+                                <p class="text-gray-600">${candidateData.education}</p>
+                                <div class="flex items-center space-x-3 mt-2">
+                                    <span class="bg-${candidateData.category === 'SC' ? 'green' : candidateData.category === 'OBC' ? 'yellow' : candidateData.category === 'ST' ? 'purple' : 'blue'}-100 text-${candidateData.category === 'SC' ? 'green' : candidateData.category === 'OBC' ? 'yellow' : candidateData.category === 'ST' ? 'purple' : 'blue'}-700 px-3 py-1 rounded-full text-sm font-medium">${candidateData.category} Category</span>
+                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">${candidateData.score}% Match</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-600 text-2xl">×</button>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="mr-2">📞</span>
+                            Contact Information
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <span class="text-sm font-medium text-gray-600">Email</span>
+                                <p class="text-gray-800">${candidateData.email}</p>
+                            </div>
+                            <div>
+                                <span class="text-sm font-medium text-gray-600">Phone</span>
+                                <p class="text-gray-800">${candidateData.phone}</p>
+                            </div>
+                            <div>
+                                <span class="text-sm font-medium text-gray-600">Location</span>
+                                <p class="text-gray-800">📍 ${candidateData.location}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Match Score Analysis -->
+                    <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="mr-2">🎯</span>
+                            AI Match Analysis
+                        </h3>
+                        <div class="flex items-center space-x-4 mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-sm font-medium text-gray-700">Overall Match Score</span>
+                                    <span class="text-lg font-bold text-green-600">${candidateData.score}%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full" style="width: ${candidateData.score}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                            <div class="text-center">
+                                <div class="font-bold text-blue-600">${Math.min(candidateData.score + 2, 100)}%</div>
+                                <div class="text-gray-600">Skills Match</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="font-bold text-purple-600">${Math.min(candidateData.score - 3, 100)}%</div>
+                                <div class="text-gray-600">Experience</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="font-bold text-orange-600">${Math.min(candidateData.score + 1, 100)}%</div>
+                                <div class="text-gray-600">Location Fit</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="font-bold text-green-600">${Math.min(candidateData.score - 1, 100)}%</div>
+                                <div class="text-gray-600">Cultural Fit</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills & Expertise -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                                <span class="mr-2">🛠️</span>
+                                Technical Skills
+                            </h3>
+                            <div class="flex flex-wrap gap-2">
+                                ${candidateData.skills.map(skill => `<span class="bg-blue-100 text-blue-700 px-3 py-2 rounded-lg text-sm font-medium">${skill}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                                <span class="mr-2">🎓</span>
+                                Education & Background
+                            </h3>
+                            <div class="bg-white rounded-lg p-3 border border-gray-200">
+                                <p class="font-medium text-gray-800">${candidateData.education}</p>
+                                <p class="text-sm text-gray-600 mt-1">📍 ${candidateData.location}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience & Achievements -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="mr-2">💼</span>
+                            Experience & Achievements
+                        </h3>
+                        <div class="bg-white rounded-lg p-4 border border-gray-200">
+                            <p class="text-gray-700">${candidateData.experience}</p>
+                        </div>
+                    </div>
+
+                    <!-- Career Preferences -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                                <span class="mr-2">🎯</span>
+                                Career Preferences
+                            </h3>
+                            <div class="bg-blue-50 rounded-lg p-4">
+                                <p class="text-blue-800">${candidateData.preference}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                                <span class="mr-2">💼</span>
+                                Expected Role
+                            </h3>
+                            <div class="bg-green-50 rounded-lg p-4">
+                                <p class="text-green-800 font-medium">${candidateData.expectedRole}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sector Compatibility -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="mr-2">${sector.icon}</span>
+                            ${currentSector} Sector Compatibility
+                        </h3>
+                        <div class="bg-gradient-to-r from-${sector.color}-50 to-${sector.color}-100 rounded-lg p-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-semibold text-${sector.color}-800 mb-2">Matching Skills</h4>
+                                    <div class="flex flex-wrap gap-1">
+                                        ${candidateData.skills.filter(skill => sector.skills.some(sectorSkill => 
+                                            skill.toLowerCase().includes(sectorSkill.toLowerCase()) || 
+                                            sectorSkill.toLowerCase().includes(skill.toLowerCase())
+                                        )).map(skill => `<span class="bg-${sector.color}-200 text-${sector.color}-800 px-2 py-1 rounded text-xs">${skill}</span>`).join('')}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-${sector.color}-800 mb-2">Recommended Companies</h4>
+                                    <div class="space-y-1">
+                                        ${Object.keys(sector.companies).slice(0, 3).map(company => `
+                                            <div class="text-sm text-${sector.color}-700">• ${company}</div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-200">
+                        <button onclick="selectCandidate('${candidateData.name}', '${candidateData.email}', '${candidateData.phone}'); this.parentElement.parentElement.parentElement.remove();" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium">
+                            ✅ Select for Internship
+                        </button>
+                        <button onclick="scheduleInterview('${candidateData.name}', '${candidateData.email}', '${candidateData.phone}'); this.parentElement.parentElement.parentElement.remove();" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium">
+                            📞 Schedule Interview
+                        </button>
+                        <button onclick="downloadProfile('${candidateData.name}')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                            📄 Download Resume
+                        </button>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium">
+                            Close Profile
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Download profile function
+        function downloadProfile(name) {
+            const candidates = candidateProfiles[currentSector] || [];
+            const candidateData = candidates.find(c => c.name === name);
+            
+            if (!candidateData) return;
+
+            // Create a simple text resume
+            const resumeContent = `
+PM INTERNSHIP PROGRAM - CANDIDATE PROFILE
+==========================================
+
+PERSONAL INFORMATION
+Name: ${candidateData.name}
+Email: ${candidateData.email}
+Phone: ${candidateData.phone}
+Location: ${candidateData.location}
+Category: ${candidateData.category}
+
+EDUCATION
+${candidateData.education}
+
+TECHNICAL SKILLS
+${candidateData.skills.join(', ')}
+
+EXPERIENCE & ACHIEVEMENTS
+${candidateData.experience}
+
+CAREER PREFERENCES
+${candidateData.preference}
+
+EXPECTED ROLE
+${candidateData.expectedRole}
+
+AI MATCH ANALYSIS
+Overall Match Score: ${candidateData.score}%
+Sector: ${currentSector}
+
+Generated on: ${new Date().toLocaleDateString()}
+PM Internship Smart Matching System
+            `.trim();
+
+            const blob = new Blob([resumeContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${candidateData.name.replace(/\s+/g, '_')}_Profile.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+            // Show success message
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-xl p-4 max-w-md w-full fade-in">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-blue-600 text-xl">📄</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Profile Downloaded!</h3>
+                        <p class="text-gray-600 text-sm mb-3">
+                            ${candidateData.name}'s profile has been downloaded successfully.
+                        </p>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                            Done
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Tab switching functionality
+        function switchTab(tab) {
+            currentTab = tab;
+            const availableTab = document.getElementById('availableTab');
+            const selectedTab = document.getElementById('selectedTab');
+            const availableView = document.getElementById('availableView');
+            const selectedView = document.getElementById('selectedView');
+
+            if (tab === 'available') {
+                availableTab.className = 'flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 bg-blue-600 text-white';
+                selectedTab.className = 'flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 text-gray-600 hover:text-gray-800';
+                availableView.classList.remove('hidden');
+                selectedView.classList.add('hidden');
+            } else {
+                availableTab.className = 'flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 text-gray-600 hover:text-gray-800';
+                selectedTab.className = 'flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 bg-blue-600 text-white';
+                availableView.classList.add('hidden');
+                selectedView.classList.remove('hidden');
+                renderSelectedCandidates();
+            }
+        }
+
+        // Render selected candidates
+        function renderSelectedCandidates() {
+            const selectedCandidatesList = document.getElementById('selectedCandidatesList');
+            const totalSelected = document.getElementById('totalSelected');
+            
+            // Update sector filter dropdown
+            updateSectorFilterDropdown();
+            
+            // Filter candidates based on selected sector
+            const filteredCandidates = selectedSectorFilter === 'all' 
+                ? selectedCandidates 
+                : selectedCandidates.filter(candidate => candidate.sector === selectedSectorFilter);
+            
+            totalSelected.textContent = selectedCandidates.length;
+            
+            // Update filter statistics
+            updateFilterStats(filteredCandidates.length);
+
+            if (selectedCandidates.length === 0) {
+                selectedCandidatesList.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl">📋</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">No Candidates Selected Yet</h3>
+                        <p class="text-gray-500">Selected candidates will appear here. You can manage and track all your selections from this tab.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            if (filteredCandidates.length === 0) {
+                selectedCandidatesList.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl">🔍</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">No Candidates in Selected Sector</h3>
+                        <p class="text-gray-500">No candidates selected for "${selectedSectorFilter}". Try selecting "All Sectors" or choose candidates from this sector.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Group filtered candidates by sector
+            const groupedCandidates = filteredCandidates.reduce((acc, candidate) => {
+                if (!acc[candidate.sector]) {
+                    acc[candidate.sector] = [];
+                }
+                acc[candidate.sector].push(candidate);
+                return acc;
+            }, {});
+
+            selectedCandidatesList.innerHTML = Object.entries(groupedCandidates).map(([sector, candidates]) => `
+                <div class="mb-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-gray-800 flex items-center">
+                            <span class="mr-2">${sectors[sector]?.icon || '🏢'}</span>
+                            ${sector}
+                        </h3>
+                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                            ${candidates.length} selected
+                        </span>
+                    </div>
+                    <div class="space-y-4">
+                        ${candidates.map(candidate => `
+                            <div class="border border-gray-200 rounded-lg p-4 bg-green-50 border-l-4 border-l-green-500">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                                            ${candidate.name.charAt(0)}
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-800">${candidate.name}</h4>
+                                            <p class="text-sm text-gray-600">${candidate.education}</p>
+                                            <div class="flex items-center space-x-4 mt-1">
+                                                <span class="text-xs text-gray-500">📍 ${candidate.location}</span>
+                                                <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">${candidate.score}% Match</span>
+                                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">${candidate.category}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col space-y-2">
+                                        <div class="text-right text-xs text-gray-500">
+                                            Selected: ${candidate.selectedDate}
+                                        </div>
+                                        <button onclick="undoSelection('${candidate.id}')" class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 transition-colors">
+                                            ↩️ Undo Selection
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                                    <div>
+                                        <span class="font-semibold text-gray-700">Company:</span> ${candidate.company}
+                                    </div>
+                                    <div>
+                                        <span class="font-semibold text-gray-700">Role:</span> ${candidate.role}
+                                    </div>
+                                    <div>
+                                        <span class="font-semibold text-gray-700">Contact:</span> ${candidate.email}
+                                    </div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <span class="font-semibold text-gray-700 text-xs">Skills:</span>
+                                    <div class="flex flex-wrap gap-1 mt-1">
+                                        ${candidate.skills.slice(0, 4).map(skill => `<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">${skill}</span>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Undo selection function
+        function undoSelection(candidateId) {
+            const candidateIndex = selectedCandidates.findIndex(c => c.id === candidateId);
+            if (candidateIndex === -1) return;
+
+            const candidate = selectedCandidates[candidateIndex];
+            
+            // Restore position count
+            if (sectors[candidate.sector]) {
+                sectors[candidate.sector].positions += 1;
+            }
+
+            // Remove from selected candidates
+            selectedCandidates.splice(candidateIndex, 1);
+
+            // Update displays
+            updateSelectedCount();
+            renderSelectedCandidates();
+            updateSectorDisplay();
+
+            // Show confirmation
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-xl p-4 max-w-md w-full max-h-screen overflow-y-auto fade-in">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-orange-600 text-xl">↩️</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Selection Undone</h3>
+                        <div class="bg-orange-50 rounded-lg p-3 mb-3">
+                            <p class="text-orange-700 text-sm">
+                                <strong>${candidate.name}</strong> has been removed from selected candidates.
+                            </p>
+                            <p class="text-orange-600 text-xs mt-1">
+                                Position restored to ${candidate.sector} (${sectors[candidate.sector]?.positions} available)
+                            </p>
+                        </div>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition-colors text-sm">
+                            OK
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Update selected count in tab
+        function updateSelectedCount() {
+            document.getElementById('selectedCount').textContent = selectedCandidates.length;
+        }
+
+        // Update sector filter dropdown with available sectors
+        function updateSectorFilterDropdown() {
+            const dropdown = document.getElementById('sectorFilterDropdown');
+            if (!dropdown) return;
+
+            // Get unique sectors from selected candidates
+            const uniqueSectors = [...new Set(selectedCandidates.map(candidate => candidate.sector))];
+            
+            // Clear and rebuild dropdown
+            dropdown.innerHTML = '<option value="all">All Sectors</option>';
+            
+            uniqueSectors.forEach(sector => {
+                const count = selectedCandidates.filter(c => c.sector === sector).length;
+                const option = document.createElement('option');
+                option.value = sector;
+                option.textContent = `${sector} (${count})`;
+                dropdown.appendChild(option);
+            });
+
+            // Set current selection
+            dropdown.value = selectedSectorFilter;
+        }
+
+        // Filter selected candidates by sector
+        function filterSelectedBySector() {
+            const dropdown = document.getElementById('sectorFilterDropdown');
+            selectedSectorFilter = dropdown.value;
+            renderSelectedCandidates();
+        }
+
+        // Update filter statistics
+        function updateFilterStats(filteredCount) {
+            const statsElement = document.getElementById('filterStats');
+            if (!statsElement) return;
+
+            if (selectedSectorFilter === 'all') {
+                statsElement.textContent = `Showing all ${selectedCandidates.length} selected candidates`;
+            } else {
+                statsElement.textContent = `Showing ${filteredCount} candidates from ${selectedSectorFilter}`;
+            }
+        }
+
+        // Export selected candidates
+        function exportSelected() {
+            if (selectedCandidates.length === 0) {
+                alert('No candidates selected to export.');
+                return;
+            }
+
+            const csvContent = [
+                ['Name', 'Email', 'Phone', 'Sector', 'Company', 'Role', 'Score', 'Education', 'Location', 'Category', 'Selected Date'].join(','),
+                ...selectedCandidates.map(candidate => [
+                    candidate.name,
+                    candidate.email,
+                    candidate.phone,
+                    candidate.sector,
+                    candidate.company,
+                    candidate.role,
+                    candidate.score + '%',
+                    candidate.education,
+                    candidate.location,
+                    candidate.category,
+                    candidate.selectedDate
+                ].join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `selected_candidates_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+            // Show success message
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-xl p-4 max-w-md w-full fade-in">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-green-600 text-xl">📊</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Export Successful!</h3>
+                        <p class="text-gray-600 text-sm mb-3">
+                            Selected candidates list has been exported as CSV file with ${selectedCandidates.length} candidates.
+                        </p>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors text-sm">
+                            Done
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Initialize the application when page loads
+        document.addEventListener('DOMContentLoaded', initializeApp);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97af5acaf4874850',t:'MTc1NzE3NjI2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97d0619347eb9a8f',t:'MTc1NzUyMjU3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
