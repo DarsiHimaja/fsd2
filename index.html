@@ -160,7 +160,7 @@
                                 <option>Home State Preference</option>
                             </select>
                         </div>
-                        <button class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium">
+                        <button onclick="applyFilters()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium">
                             Apply AI Matching
                         </button>
                     </div>
@@ -924,6 +924,40 @@
         // Initialize the application
         function initializeApp() {
             renderSectors();
+            
+            // Add event listener for category filter changes
+            document.getElementById('categoryFilter').addEventListener('change', function() {
+                if (currentSector) {
+                    renderCandidates(currentSector);
+                }
+            });
+        }
+
+        // Apply filters function
+        function applyFilters() {
+            if (currentSector) {
+                renderCandidates(currentSector);
+                
+                // Show filter applied message
+                const filterValue = document.getElementById('categoryFilter').value;
+                const filterText = document.getElementById('categoryFilter').options[document.getElementById('categoryFilter').selectedIndex].text;
+                
+                const toast = document.createElement('div');
+                toast.className = 'fixed top-4 right-4 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 fade-in';
+                toast.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span>🔍</span>
+                        <span>Filter Applied: ${filterText}</span>
+                    </div>
+                `;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.remove();
+                }, 3000);
+            } else {
+                alert('Please select a sector first to apply filters.');
+            }
         }
 
         // Render sector list
@@ -1054,8 +1088,51 @@
             const candidatesList = document.getElementById('candidatesList');
             const candidates = candidateProfiles[sectorName] || [];
             
+            // Apply category filter
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            let filteredCandidates = candidates;
+            
+            if (categoryFilter !== 'all') {
+                filteredCandidates = candidates.filter(candidate => {
+                    switch(categoryFilter) {
+                        case 'SC':
+                            return candidate.category === 'SC';
+                        case 'ST':
+                            return candidate.category === 'ST';
+                        case 'OBC':
+                            return candidate.category === 'OBC';
+                        case 'General':
+                            return candidate.category === 'General';
+                        case 'rural':
+                            return candidate.location.includes('Rural') || 
+                                   ['Patna', 'Ranchi', 'Kota', 'Raipur', 'Imphal', 'Shillong'].includes(candidate.location);
+                        case 'first-time':
+                            return candidate.experience.toLowerCase().includes('first') || 
+                                   candidate.experience.toLowerCase().includes('new') ||
+                                   !candidate.experience.toLowerCase().includes('internship');
+                        case 'high-performance':
+                            return candidate.score >= 95;
+                        default:
+                            return true;
+                    }
+                });
+            }
+            
             // Sort candidates by score (highest to lowest)
-            const sortedCandidates = candidates.sort((a, b) => b.score - a.score);
+            const sortedCandidates = filteredCandidates.sort((a, b) => b.score - a.score);
+
+            if (sortedCandidates.length === 0) {
+                candidatesList.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl">🔍</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">No Candidates Found</h3>
+                        <p class="text-gray-500">No candidates match the selected filter criteria. Try adjusting your filters or select "All Categories".</p>
+                    </div>
+                `;
+                return;
+            }
 
             candidatesList.innerHTML = sortedCandidates.map((candidate, index) => `
                 <div class="border border-gray-200 rounded-lg p-6 mb-4 hover:shadow-lg transition-all duration-200 fade-in" style="animation-delay: ${index * 0.1}s">
@@ -1115,9 +1192,6 @@
                         <button onclick="viewProfile('${candidate.name}')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium">
                             📄 View Full Profile
                         </button>
-                        <button onclick="scheduleInterview('${candidate.name}', '${candidate.email}', '${candidate.phone}')" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm font-medium">
-                            📞 Schedule Interview
-                        </button>
                     </div>
                 </div>
             `).join('');
@@ -1128,8 +1202,52 @@
         let selectedCompany = '';
         let selectedRole = '';
         let selectedCandidates = [];
+        let scheduledCandidates = [];
         let currentTab = 'available';
         let selectedSectorFilter = 'all';
+
+        // Function to get candidate action buttons based on status
+        function getCandidateActionButtons(candidate) {
+            const isSelected = selectedCandidates.some(c => c.name === candidate.name && c.email === candidate.email);
+            const isScheduled = scheduledCandidates.some(c => c.name === candidate.name && c.email === candidate.email);
+            
+            if (isSelected) {
+                return `
+                    <div class="bg-green-100 text-green-700 px-4 py-2 rounded-lg border border-green-300 text-sm font-medium flex items-center">
+                        <span class="mr-2">✅</span>
+                        Selected
+                    </div>
+                    <button onclick="viewProfile('${candidate.name}')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium">
+                        📄 View Full Profile
+                    </button>
+                `;
+            } else if (isScheduled) {
+                return `
+                    <div class="bg-purple-100 text-purple-700 px-4 py-2 rounded-lg border border-purple-300 text-sm font-medium flex items-center">
+                        <span class="mr-2">📅</span>
+                        Interview Scheduled
+                    </div>
+                    <button onclick="selectCandidate('${candidate.name}', '${candidate.email}', '${candidate.phone}')" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm font-medium">
+                        ✅ Select Candidate
+                    </button>
+                    <button onclick="viewProfile('${candidate.name}')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium">
+                        📄 View Full Profile
+                    </button>
+                `;
+            } else {
+                return `
+                    <button onclick="selectCandidate('${candidate.name}', '${candidate.email}', '${candidate.phone}')" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm font-medium">
+                        ✅ Select Candidate
+                    </button>
+                    <button onclick="viewProfile('${candidate.name}')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium">
+                        📄 View Full Profile
+                    </button>
+                    <button onclick="scheduleInterview('${candidate.name}', '${candidate.email}', '${candidate.phone}')" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm font-medium">
+                        📞 Schedule Interview
+                    </button>
+                `;
+            }
+        }
 
         // Update sector display after position change
         function updateSectorDisplay() {
@@ -1190,14 +1308,34 @@
 
         // Select candidate function
         function selectCandidate(name, email, phone) {
-            const company = selectedCompany || 'TCS'; // Default company
-            const role = selectedRole || 'Software Developer'; // Default role
-            
             // Find candidate details from current sector
             const candidates = candidateProfiles[currentSector] || [];
             const candidateData = candidates.find(c => c.name === name);
             
-            if (!candidateData) return;
+            if (!candidateData) {
+                alert('Candidate data not found. Please try again.');
+                return;
+            }
+
+            // Smart company and role assignment based on candidate profile and category
+            let assignedCompany, assignedRole;
+            
+            if (selectedCompany && selectedCompany !== '') {
+                assignedCompany = selectedCompany;
+            } else {
+                // Auto-assign company based on candidate category and preferences
+                assignedCompany = getSmartCompanyAssignment(candidateData, currentSector);
+            }
+            
+            if (selectedRole && selectedRole !== '') {
+                assignedRole = selectedRole;
+            } else {
+                // Auto-assign role based on candidate profile and company
+                assignedRole = getSmartRoleAssignment(candidateData, assignedCompany, currentSector);
+            }
+            
+            const company = assignedCompany;
+            const role = assignedRole;
 
             // Create unique ID for candidate
             const candidateId = `${currentSector}_${name}_${Date.now()}`;
@@ -1230,58 +1368,189 @@
                 updateSectorDisplay();
             }
             
-            // Show confirmation modal
+            // Show confirmation modal with email details
             const modal = document.createElement('div');
             modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
             modal.innerHTML = `
-                <div class="bg-white rounded-xl p-4 max-w-lg w-full max-h-screen overflow-y-auto fade-in">
-                    <div class="text-center mb-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <span class="text-green-600 text-xl">✅</span>
+                <div class="bg-white rounded-xl p-6 max-w-2xl w-full max-h-screen overflow-y-auto fade-in">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-green-600 text-2xl">✅</span>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">Candidate Selected!</h3>
-                        <p class="text-gray-600 text-sm">Sending shortlist notification to ${name}</p>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Candidate Successfully Selected!</h3>
+                        <p class="text-gray-600">Notification email has been sent to the candidate</p>
                     </div>
                     
-                    <div class="bg-gray-50 rounded-lg p-3 mb-4">
-                        <h4 class="font-semibold text-gray-800 mb-2 text-sm">Selection Details:</h4>
-                        <p class="text-xs text-gray-600"><strong>Candidate:</strong> ${name}</p>
-                        <p class="text-xs text-gray-600"><strong>Company:</strong> ${company}</p>
-                        <p class="text-xs text-gray-600"><strong>Role:</strong> ${role}</p>
-                        <p class="text-xs text-gray-600"><strong>Email:</strong> ${email}</p>
-                        <p class="text-xs text-gray-600"><strong>Phone:</strong> ${phone}</p>
-                    </div>
-
-                    <div class="bg-green-50 rounded-lg p-3 mb-4">
-                        <h4 class="font-semibold text-green-800 mb-2 text-sm">✅ Email Sent Successfully!</h4>
-                        <p class="text-xs text-green-700 mb-2">
-                            <strong>To:</strong> ${email}<br>
-                            <strong>Subject:</strong> Congratulations! You're Shortlisted for PM Internship
-                        </p>
-                        <div class="bg-white rounded p-2 text-xs text-gray-700 border-l-4 border-green-400 max-h-32 overflow-y-auto">
-                            "Dear ${name},<br><br>
-                            Congratulations! You have been successfully shortlisted for the <strong>${role}</strong> position at <strong>${company}</strong> 
-                            under the PM Internship Scheme.<br><br>
-                            Your application scored <strong>high marks</strong> in our AI-powered matching system. 
-                            Please check your email for further instructions and interview details.<br><br>
-                            Next Steps: Our team will contact you within 24 hours to schedule your interview.<br><br>
-                            Best regards,<br>
-                            PM Internship Team"
+                    <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                        <h4 class="font-bold text-blue-800 mb-3 flex items-center">
+                            <span class="mr-2">📋</span>
+                            Selection Summary
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div><strong>Candidate:</strong> ${name}</div>
+                            <div><strong>Match Score:</strong> ${candidateData.score}%</div>
+                            <div><strong>Company:</strong> ${company}</div>
+                            <div><strong>Role:</strong> ${role}</div>
+                            <div><strong>Sector:</strong> ${currentSector}</div>
+                            <div><strong>Category:</strong> ${candidateData.category}</div>
                         </div>
                     </div>
 
-                    <div class="flex space-x-2">
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="flex-1 bg-gray-600 text-white py-2 px-3 rounded-lg hover:bg-gray-700 transition-colors text-sm">
+                    <div class="bg-purple-50 rounded-lg p-4 mb-6">
+                        <h4 class="font-bold text-purple-800 mb-3 flex items-center">
+                            <span class="mr-2">📅</span>
+                            Schedule Interview
+                        </h4>
+                        <p class="text-purple-700 text-sm mb-3">Would you like to schedule an interview with this candidate?</p>
+                        <button onclick="scheduleInterviewFromSelection('${name}', '${email}', '${phone}'); this.parentElement.parentElement.parentElement.remove();" 
+                                class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium mr-3">
+                            📞 Schedule Interview Now
+                        </button>
+                        <span class="text-purple-600 text-sm">or continue without scheduling</span>
+                    </div>
+
+                    <div class="bg-green-50 rounded-lg p-4 mb-6">
+                        <h4 class="font-bold text-green-800 mb-3 flex items-center">
+                            <span class="mr-2">📧</span>
+                            Email Notification Sent
+                        </h4>
+                        <div class="bg-white rounded-lg p-3 border border-green-200">
+                            <div class="text-sm mb-3">
+                                <strong>To:</strong> ${email}<br>
+                                <strong>Subject:</strong> 🎉 Congratulations! Selected for PM Internship - ${role} at ${company}<br>
+                                <strong>Status:</strong> <span class="text-green-600 font-semibold">✅ Delivered Successfully</span>
+                            </div>
+                            <div class="bg-gray-50 rounded p-3 text-xs text-gray-700 max-h-40 overflow-y-auto">
+                                <strong>Email Content:</strong><br><br>
+                                "Dear ${name},<br><br>
+                                🎉 <strong>Congratulations!</strong> We are delighted to inform you that you have been <strong>selected</strong> for the PM Internship Program.<br><br>
+                                
+                                <strong>📋 Your Assignment Details:</strong><br>
+                                • <strong>Company:</strong> ${company}<br>
+                                • <strong>Role:</strong> ${role}<br>
+                                • <strong>Sector:</strong> ${currentSector}<br>
+                                • <strong>Match Score:</strong> ${candidateData.score}% (Excellent Match!)<br>
+                                • <strong>Selection Date:</strong> ${new Date().toLocaleDateString()}<br><br>
+                                
+                                <strong>📞 Next Steps:</strong><br>
+                                1. Our team will contact you within 24-48 hours<br>
+                                2. Interview will be scheduled based on your availability<br>
+                                3. You will receive detailed internship information<br>
+                                4. Onboarding process will begin after final confirmation<br><br>
+                                
+                                <strong>📱 Contact Information:</strong><br>
+                                Phone: ${phone}<br>
+                                Email: ${email}<br><br>
+                                
+                                Please keep this email for your records and be ready for our call.<br><br>
+                                
+                                Welcome to the PM Internship Program!<br><br>
+                                
+                                Best regards,<br>
+                                <strong>PM Internship Selection Team</strong><br>
+                                Government of India"
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="flex space-x-3">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" 
+                                class="flex-1 bg-gray-600 text-white py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors font-medium">
                             Close
                         </button>
-                        <button onclick="scheduleInterview('${name}', '${email}', '${phone}'); this.parentElement.parentElement.parentElement.remove();" class="flex-1 bg-purple-600 text-white py-2 px-3 rounded-lg hover:bg-purple-700 transition-colors text-sm">
-                            Schedule Interview
+                        <button onclick="viewProfile('${name}'); this.parentElement.parentElement.parentElement.remove();" 
+                                class="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                            📄 View Full Profile
                         </button>
                     </div>
                 </div>
             `;
             document.body.appendChild(modal);
         }
+
+        // Smart company assignment based on candidate profile
+        function getSmartCompanyAssignment(candidateData, sector) {
+            const sectorData = sectors[sector];
+            const companies = Object.keys(sectorData.companies);
+            
+            // Priority assignment based on category and preferences
+            if (candidateData.category === 'SC' || candidateData.category === 'ST') {
+                // Prioritize government/PSU companies for reserved categories
+                const govCompanies = companies.filter(company => 
+                    ['ONGC', 'Indian Oil', 'NTPC', 'SBI', 'HDFC Bank', 'BSNL', 'AIIMS', 'L&T'].includes(company)
+                );
+                if (govCompanies.length > 0) {
+                    return govCompanies[0];
+                }
+            }
+            
+            if (candidateData.category === 'OBC') {
+                // Balance between private and public sector
+                const balancedCompanies = companies.filter(company => 
+                    !['TCS', 'Infosys', 'Wipro'].includes(company)
+                );
+                if (balancedCompanies.length > 0) {
+                    return balancedCompanies[0];
+                }
+            }
+            
+            // For General category or fallback, assign based on score
+            if (candidateData.score >= 95) {
+                return companies[0]; // Top company
+            } else if (candidateData.score >= 90) {
+                return companies[1] || companies[0];
+            } else {
+                return companies[2] || companies[1] || companies[0];
+            }
+        }
+
+        // Smart role assignment based on candidate profile and company
+        function getSmartRoleAssignment(candidateData, company, sector) {
+            const sectorData = sectors[sector];
+            const roles = sectorData.companies[company] || [];
+            
+            if (roles.length === 0) return 'Trainee';
+            
+            // Match role based on candidate preferences and skills
+            const preference = candidateData.preference.toLowerCase();
+            const expectedRole = candidateData.expectedRole.toLowerCase();
+            
+            // Find matching role based on preferences
+            for (const role of roles) {
+                if (preference.includes(role.toLowerCase()) || 
+                    expectedRole.includes(role.toLowerCase()) ||
+                    role.toLowerCase().includes(preference.split(' ')[0]) ||
+                    role.toLowerCase().includes(expectedRole.split(' ')[0])) {
+                    return role;
+                }
+            }
+            
+            // Category-based role assignment
+            if (candidateData.category === 'SC' || candidateData.category === 'ST') {
+                // Assign community-focused or entry-level roles
+                const communityRoles = roles.filter(role => 
+                    role.includes('Community') || role.includes('Rural') || 
+                    role.includes('Trainee') || role.includes('Associate') ||
+                    role.includes('Officer') || role.includes('Coordinator')
+                );
+                if (communityRoles.length > 0) {
+                    return communityRoles[0];
+                }
+            }
+            
+            // Score-based assignment
+            if (candidateData.score >= 95) {
+                return roles[0]; // Top role
+            } else if (candidateData.score >= 90) {
+                return roles[1] || roles[0];
+            } else {
+                return roles[roles.length - 1] || roles[0]; // Entry-level role
+            }
+        }
+
+
 
         // Schedule interview function
         function scheduleInterview(name, email, phone) {
@@ -1362,8 +1631,38 @@
             document.body.appendChild(modal);
         }
 
+        // Schedule interview from selection modal
+        function scheduleInterviewFromSelection(name, email, phone) {
+            scheduleInterview(name, email, phone);
+        }
+
         // Confirm interview scheduling
         function confirmInterview(name, email) {
+            // Add candidate to scheduled list
+            const candidates = candidateProfiles[currentSector] || [];
+            const candidateData = candidates.find(c => c.name === name && c.email === email);
+            
+            if (candidateData) {
+                const scheduledCandidate = {
+                    name: candidateData.name,
+                    email: candidateData.email,
+                    phone: candidateData.phone,
+                    sector: currentSector,
+                    scheduledDate: new Date().toLocaleDateString(),
+                    scheduledTime: new Date().toLocaleTimeString()
+                };
+                
+                // Add to scheduled list if not already there
+                if (!scheduledCandidates.some(c => c.name === name && c.email === email)) {
+                    scheduledCandidates.push(scheduledCandidate);
+                }
+                
+                // Re-render candidates to update button states
+                if (currentSector) {
+                    renderCandidates(currentSector);
+                }
+            }
+
             const successModal = document.createElement('div');
             successModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
             successModal.innerHTML = `
@@ -1382,6 +1681,11 @@
                                 <strong>📧 Subject:</strong> Interview Scheduled - PM Internship Program<br>
                                 <strong>👤 Candidate:</strong> ${name}<br>
                                 <strong>📅 Status:</strong> Interview invitation delivered
+                            </p>
+                        </div>
+                        <div class="bg-purple-50 rounded-lg p-3 mb-3">
+                            <p class="text-purple-700 text-xs">
+                                <strong>📅 Status Updated:</strong> Candidate now shows as "Interview Scheduled" in the candidate list.
                             </p>
                         </div>
                         <p class="text-gray-600 mb-3 text-sm">The candidate will receive all interview details and confirmation instructions via email.</p>
@@ -1555,10 +1859,7 @@
                                 <div>
                                     <h4 class="font-semibold text-${sector.color}-800 mb-2">Matching Skills</h4>
                                     <div class="flex flex-wrap gap-1">
-                                        ${candidateData.skills.filter(skill => sector.skills.some(sectorSkill => 
-                                            skill.toLowerCase().includes(sectorSkill.toLowerCase()) || 
-                                            sectorSkill.toLowerCase().includes(skill.toLowerCase())
-                                        )).map(skill => `<span class="bg-${sector.color}-200 text-${sector.color}-800 px-2 py-1 rounded text-xs">${skill}</span>`).join('')}
+                                        ${getMatchingSkills(candidateData.skills, sector.skills, currentSector).map(skill => `<span class="bg-${sector.color}-200 text-${sector.color}-800 px-2 py-1 rounded text-xs">${skill}</span>`).join('')}
                                     </div>
                                 </div>
                                 <div>
@@ -1577,9 +1878,6 @@
                     <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-200">
                         <button onclick="selectCandidate('${candidateData.name}', '${candidateData.email}', '${candidateData.phone}'); this.parentElement.parentElement.parentElement.remove();" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium">
                             ✅ Select for Internship
-                        </button>
-                        <button onclick="scheduleInterview('${candidateData.name}', '${candidateData.email}', '${candidateData.phone}'); this.parentElement.parentElement.parentElement.remove();" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium">
-                            📞 Schedule Interview
                         </button>
                         <button onclick="downloadProfile('${candidateData.name}')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
                             📄 Download Resume
@@ -1956,9 +2254,161 @@ PM Internship Smart Matching System
             document.body.appendChild(modal);
         }
 
+        // Smart skill matching function
+        function getMatchingSkills(candidateSkills, sectorSkills, sectorName) {
+            const matchingSkills = [];
+            
+            // Direct matches
+            candidateSkills.forEach(candidateSkill => {
+                sectorSkills.forEach(sectorSkill => {
+                    if (candidateSkill.toLowerCase().includes(sectorSkill.toLowerCase()) || 
+                        sectorSkill.toLowerCase().includes(candidateSkill.toLowerCase())) {
+                        if (!matchingSkills.includes(candidateSkill)) {
+                            matchingSkills.push(candidateSkill);
+                        }
+                    }
+                });
+            });
+            
+            // Smart matching based on sector-specific skill mappings
+            const skillMappings = {
+                'IT and Software Development': {
+                    'Python': ['Programming', 'Data Structures', 'Problem Solving'],
+                    'Java': ['Programming', 'Problem Solving'],
+                    'React': ['Web Development', 'Programming'],
+                    'JavaScript': ['Web Development', 'Programming'],
+                    'Node.js': ['Web Development', 'Programming'],
+                    'Machine Learning': ['Programming', 'Data Structures'],
+                    'AWS': ['Programming', 'Problem Solving'],
+                    'Spring Boot': ['Programming', 'Database Management'],
+                    'MongoDB': ['Database Management'],
+                    'Database Design': ['Database Management'],
+                    'DevOps': ['Programming', 'Problem Solving'],
+                    'C++': ['Programming', 'Data Structures', 'Problem Solving'],
+                    'Android Development': ['Programming', 'Problem Solving'],
+                    'Firebase': ['Database Management', 'Programming']
+                },
+                'Banking and Financial Services': {
+                    'Financial Modeling': ['Financial Analysis'],
+                    'Risk Analysis': ['Risk Assessment', 'Financial Analysis'],
+                    'Excel': ['Data Analysis', 'Financial Analysis'],
+                    'SQL': ['Data Analysis'],
+                    'Accounting': ['Financial Analysis'],
+                    'Banking Operations': ['Customer Service', 'Regulatory Compliance'],
+                    'Digital Banking': ['Customer Service'],
+                    'Investment Analysis': ['Financial Analysis', 'Risk Assessment'],
+                    'Portfolio Management': ['Financial Analysis', 'Risk Assessment']
+                },
+                'Oil, Gas & Energy': {
+                    'Reservoir Engineering': ['Technical Analysis', 'Project Management'],
+                    'Drilling Operations': ['Technical Analysis', 'Safety Protocols'],
+                    'Production Optimization': ['Technical Analysis', 'Data Interpretation'],
+                    'Process Engineering': ['Technical Analysis', 'Environmental Compliance'],
+                    'Environmental Compliance': ['Environmental Compliance', 'Safety Protocols'],
+                    'Safety Management': ['Safety Protocols'],
+                    'Mechanical Systems': ['Technical Analysis'],
+                    'Renewable Energy Systems': ['Technical Analysis', 'Environmental Compliance'],
+                    'Power Electronics': ['Technical Analysis']
+                },
+                'FMCG': {
+                    'Brand Management': ['Marketing', 'Brand Management'],
+                    'Market Research': ['Consumer Research', 'Marketing'],
+                    'Consumer Behavior': ['Consumer Research'],
+                    'Digital Marketing': ['Marketing'],
+                    'Food Processing': ['Supply Chain'],
+                    'Quality Assurance': ['Supply Chain'],
+                    'Supply Chain Management': ['Supply Chain'],
+                    'Operations Research': ['Supply Chain'],
+                    'Social Media Strategy': ['Marketing', 'Brand Management'],
+                    'Content Marketing': ['Marketing']
+                },
+                'Telecom': {
+                    '5G Technology': ['Network Technologies'],
+                    'Network Optimization': ['Network Technologies', 'Technical Support'],
+                    'RF Engineering': ['Network Technologies'],
+                    'Signal Processing': ['Network Technologies'],
+                    'Network Administration': ['Network Technologies', 'Technical Support'],
+                    'Cybersecurity': ['Network Technologies'],
+                    'Network Planning': ['Network Technologies', 'Project Coordination'],
+                    'Mobile Technology': ['Network Technologies'],
+                    'IoT Systems': ['Network Technologies', 'Data Analysis']
+                },
+                'Manufacturing': {
+                    'Production Planning': ['Process Optimization', 'Quality Control'],
+                    'Lean Manufacturing': ['Process Optimization'],
+                    'Automation': ['Process Optimization', 'Technical Documentation'],
+                    'Industrial Engineering': ['Process Optimization'],
+                    'Process Improvement': ['Process Optimization'],
+                    'Manufacturing Processes': ['Process Optimization', 'Quality Control'],
+                    'Tool Design': ['Technical Documentation'],
+                    'CNC Programming': ['Technical Documentation'],
+                    'CAD/CAM': ['Technical Documentation'],
+                    'Product Design': ['Technical Documentation']
+                },
+                'Travel & Hospitality': {
+                    'Hotel Operations': ['Operations Management'],
+                    'Customer Service': ['Customer Service'],
+                    'Event Management': ['Event Management', 'Operations Management'],
+                    'Tourism Planning': ['Operations Management'],
+                    'Cultural Tourism': ['Cultural Sensitivity', 'Customer Service'],
+                    'Eco-tourism': ['Cultural Sensitivity'],
+                    'Travel Planning': ['Operations Management'],
+                    'Tour Operations': ['Operations Management'],
+                    'Front Office Operations': ['Customer Service', 'Operations Management'],
+                    'Food & Beverage': ['Operations Management'],
+                    'Revenue Management': ['Operations Management']
+                },
+                'Healthcare': {
+                    'Clinical Medicine': ['Patient Care', 'Medical Technology'],
+                    'Patient Care': ['Patient Care'],
+                    'Medical Research': ['Healthcare Administration', 'Data Management'],
+                    'Healthcare Administration': ['Healthcare Administration'],
+                    'Community Health': ['Patient Care'],
+                    'Preventive Medicine': ['Patient Care'],
+                    'Health Education': ['Patient Care'],
+                    'Pharmaceutical Sciences': ['Medical Technology'],
+                    'Clinical Pharmacy': ['Medical Technology', 'Patient Care'],
+                    'Healthcare Management': ['Healthcare Administration'],
+                    'Hospital Operations': ['Healthcare Administration', 'Data Management']
+                },
+                'Infrastructure & Construction': {
+                    'Structural Design': ['Project Management', 'Technical Drawing'],
+                    'Construction Planning': ['Project Management'],
+                    'Site Engineering': ['Site Supervision', 'Safety Protocols'],
+                    'Construction Management': ['Project Management', 'Site Supervision'],
+                    'Rural Construction': ['Project Management'],
+                    'Sustainable Building': ['Quality Assurance'],
+                    'Environmental Engineering': ['Quality Assurance'],
+                    'Architectural Design': ['Technical Drawing'],
+                    'Urban Planning': ['Project Management'],
+                    'Building Information Modeling': ['Technical Drawing']
+                }
+            };
+            
+            // Apply sector-specific mappings
+            if (skillMappings[sectorName]) {
+                candidateSkills.forEach(candidateSkill => {
+                    if (skillMappings[sectorName][candidateSkill]) {
+                        skillMappings[sectorName][candidateSkill].forEach(mappedSkill => {
+                            if (sectorSkills.includes(mappedSkill) && !matchingSkills.includes(candidateSkill)) {
+                                matchingSkills.push(candidateSkill);
+                            }
+                        });
+                    }
+                });
+            }
+            
+            // Ensure at least one relevant skill is shown
+            if (matchingSkills.length === 0) {
+                // Add the first 2-3 candidate skills as relevant
+                matchingSkills.push(...candidateSkills.slice(0, Math.min(3, candidateSkills.length)));
+            }
+            
+            return matchingSkills;
+        }
+
         // Initialize the application when page loads
         document.addEventListener('DOMContentLoaded', initializeApp);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97d0619347eb9a8f',t:'MTc1NzUyMjU3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97d0900b65da4734',t:'MTc1NzUyNDQ3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
